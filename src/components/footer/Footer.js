@@ -1,9 +1,8 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { Link } from 'react-router-dom/cjs/react-router-dom.min';
-import drink from '../../images/drinkIcon.svg';
-import meals from '../../images/mealIcon.svg';
-import '../style/footer.css';
+import drinkIcon from '../../images/drinkIcon.svg';
+import mealIcon from '../../images/mealIcon.svg';
+import './footer.css';
 
 function Footer() {
   const history = useHistory();
@@ -12,20 +11,20 @@ function Footer() {
     <footer
       data-testid="footer"
     >
-      <Link rel="stylesheet" href={ () => history.push('/meals') }>
+      <button type="button" onClick={ () => history.push('/meals') }>
         <img
           data-testid="meals-bottom-btn"
-          src={ drink }
+          src={ mealIcon }
           alt="food"
         />
-      </Link>
-      <Link href={ () => history.push('/drinks') }>
+      </button>
+      <button type="button" onClick={ () => history.push('/drinks') }>
         <img
           data-testid="drinks-bottom-btn"
-          src={ meals }
+          src={ drinkIcon }
           alt="drink"
         />
-      </Link>
+      </button>
     </footer>
   );
 }
