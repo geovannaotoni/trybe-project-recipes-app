@@ -1,14 +1,16 @@
+import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import './App.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import Login from './pages/Login';
+import SearchBar from './components/SearchBar/SearchBar';
+import Login from './pages/Login/Login';
 
 function App() {
   return (
     <div>
       <Switch>
         <Route exact path="/" component={ Login } />
+        <Route path="/meals" component={ SearchBar } />
         {/* <Route path="/meals" component={Recipes} /> */}
         {/* <Route path="/drinks" component={Recipes} /> */}
         {/* <Route path="/meals/:id-da-receita" component={RecipeDetails}/> */}
