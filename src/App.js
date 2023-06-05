@@ -6,7 +6,7 @@ import Login from './pages/Login/Login';
 import Meals from './pages/Meals/Meals';
 import Drinks from './pages/Drinks/Drinks';
 import Profile from './pages/Profile/Profile';
-import DoneRecipes from './pages/DoneRecipes/Done-recipes';
+import DoneRecipes from './pages/DoneRecipes/DoneRecipes';
 
 function App() {
   return (
