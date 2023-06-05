@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import profileIconImage from '../../images/profileIcon.svg';
 import searchIconImage from '../../images/searchIcon.svg';
+import SearchBar from '../SearchBar/SearchBar';
 
 function Header({ pageTitle }) {
   const history = useHistory();
@@ -22,6 +23,7 @@ function Header({ pageTitle }) {
         )
       }
       <h1 data-testid="page-title">{pageTitle}</h1>
+      {showInput && <SearchBar />}
     </header>
   );
 }
