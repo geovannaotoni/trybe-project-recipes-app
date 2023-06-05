@@ -1,19 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
 import profileIconImage from '../../images/profileIcon.svg';
 import searchIconImage from '../../images/searchIcon.svg';
 
-class Header extends React.Component {
-  render() {
-    const { pageTitle } = this.props;
-    return (
-      <div>
+function Header({ pageTitle }) {
+  const history = useHistory();
+  const [showInput, setShowInput] = useState(false);
+  const pagesToShowSearchIcon = ['/meals', '/drinks'];
+  const { location: { pathname } } = history;
+  return (
+    <header>
+      <button type="button" onClick={ () => history.push('/profile') }>
         <img src={ profileIconImage } alt="profile-icon" data-testid="profile-top-btn" />
-        <img src={ searchIconImage } alt="search-icon" data-testid="search-top-btn" />
-        <h2 data-testid="page-title">{ pageTitle }</h2>
-      </div>
-    );
-  }
+      </button>
+      {
+        pagesToShowSearchIcon.includes(pathname) && (
+          <button type="button" onClick={ () => setShowInput(!showInput) }>
+            <img src={ searchIconImage } alt="search-icon" data-testid="search-top-btn" />
+          </button>
+        )
+      }
+      <h1 data-testid="page-title">{pageTitle}</h1>
+    </header>
+  );
 }
 
 Header.propTypes = {
