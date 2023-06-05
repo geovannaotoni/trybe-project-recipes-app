@@ -3,9 +3,9 @@ import React, { useMemo, useState } from 'react';
 import RecipesContext from './RecipesContext';
 
 function RecipesProvider({ children }) {
-  const [meals, setMeals] = useState(null);
+  const [results, setResults] = useState(null);
 
-  const valueContext = useMemo(() => ({ meals, setMeals }), [meals]);
+  const valueContext = useMemo(() => ({ results, setResults }), [results]);
 
   return (
     <RecipesContext.Provider value={ valueContext }>

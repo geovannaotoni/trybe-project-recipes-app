@@ -1,8 +1,10 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import RecipesContext from '../../context/RecipesContext';
 import { fetchAPI } from '../../services/fetchAPI';
+
+const capitalize = (text) => text[0].toUpperCase() + text.substring(1, text.length - 1);
 
 const API_URL = {
   meals: {
@@ -23,13 +25,34 @@ const NAME = 'name';
 
 export default function SearchBar() {
   // History
-  const { location: { pathname } } = useHistory();
+  const history = useHistory();
+  const { location: { pathname } } = history;
   // Estados
   const [searchInput, setSearchInput] = useState('');
   const [radioInput, setRadioInput] = useState(INGREDIENT);
 
   // Context
-  const { meals, setMeals } = useContext(RecipesContext);
+  const { results, setResults } = useContext(RecipesContext);
+
+  // Effect
+  useEffect(() => {
+    if (results) {
+      if (results.length === 1) {
+        const path = pathname.replace('/', '');
+        const id = `id${capitalize(path)}`;
+        // console.log(path, results, id);
+        history.push(`/${path}/${results[0][id]}`);
+      } else if (results.length === 0) {
+        console.log('ZERO');
+        Swal.fire({
+          icon: 'warning',
+          title: 'Oops...',
+          text: 'Sorry, we haven\'t found any recipes for these filters.',
+          confirmButtonColor: 'yellow',
+        });
+      }
+    }
+  }, [results]);
 
   const handleRadioChange = ({ target }) => {
     setSearchInput('');
@@ -41,14 +64,14 @@ export default function SearchBar() {
     const path = pathname.replace('/', '');
 
     URL = API_URL[path][radioInput] + searchInput;
-    console.log(URL);
 
     try {
       if (radioInput === FIRST_LETTER && searchInput.length > 1) {
         throw new Error('Your search must have only 1 (one) character');
       }
-      const apiMeals = await fetchAPI(URL);
-      setMeals(apiMeals[path]);
+      const apiData = await fetchAPI(URL);
+      // console.log('apiData', apiData);
+      setResults(apiData[path] ?? []);
     } catch (error) {
       Swal.fire({
         icon: 'error',
@@ -69,10 +92,7 @@ export default function SearchBar() {
         placeholder="Digite aqui"
         // maxLength={ radioInput === 'First letter' ? 1 : '' } --> antiTrybe
       />
-      {
-        meals
-      && <h3>{meals.length}</h3>
-      }
+
       <div>
         <input
           type="radio"
@@ -106,6 +126,9 @@ export default function SearchBar() {
         <label htmlFor="first-letter-search-radio">First letter</label>
       </div>
       <button data-testid="exec-search-btn" onClick={ handleSearchClick }>Search</button>
+
+      <h4>{`${results ? results.length : 0} resultados`}</h4>
+
     </div>
   );
 }
