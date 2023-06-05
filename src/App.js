@@ -1,7 +1,8 @@
+import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import './App.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import Footer from './components/Footer';
 import Login from './pages/Login/Login';
 
 function App() {
@@ -9,6 +10,7 @@ function App() {
     <div>
       <Switch>
         <Route exact path="/" component={ Login } />
+        <Route exact path="/footer" component={ Footer } />
         {/* <Route path="/meals" component={Recipes} /> */}
         {/* <Route path="/drinks" component={Recipes} /> */}
         {/* <Route path="/meals/:id-da-receita" component={RecipeDetails}/> */}
