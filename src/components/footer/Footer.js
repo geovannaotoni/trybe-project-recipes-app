@@ -9,8 +9,7 @@ function Footer() {
   const history = useHistory();
   // console.log(history);
   return (
-    <div
-      id="footer"
+    <footer
       data-testid="footer"
     >
       <Link rel="stylesheet" href={ () => history.push('/meals') }>
@@ -27,7 +26,7 @@ function Footer() {
           alt="drink"
         />
       </Link>
-    </div>
+    </footer>
   );
 }
 export default Footer;
