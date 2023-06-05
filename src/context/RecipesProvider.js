@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import RecipesContext from './RecipesContext';
 
 function RecipesProvider({ children }) {
-  const valueContext = '';
+  const valueContext = useMemo(() => ({}), []);
   return (
     <RecipesContext.Provider value={ valueContext }>
       {children}
