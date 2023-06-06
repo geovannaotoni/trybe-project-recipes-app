@@ -2,13 +2,12 @@ import React from 'react';
 import { screen, act } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import App from '../App';
-import renderWithRouter from './utils/renderWithRouter';
-import RecipesProvider from '../context/RecipesProvider';
+import renderWithRouterAndContext from './utils/renderWithRouterAndContext';
 
 describe('Testes para o componente Footer', () => {
   const searchTopBtn = 'search-top-btn';
   it('Verifica os elementos presentes no componente', () => {
-    const { history } = renderWithRouter(<App />);
+    const { history } = renderWithRouterAndContext(<App />);
     act(() => {
       history.push('/meals');
     });
@@ -25,7 +24,7 @@ describe('Testes para o componente Footer', () => {
     expect(screen.queryByTestId(searchTopBtn)).not.toBeInTheDocument();
   });
   it('Verifica o clique do botão searchIcon', () => {
-    const { history } = renderWithRouter(<RecipesProvider><App /></RecipesProvider>);
+    const { history } = renderWithRouterAndContext(<App />);
     act(() => {
       history.push('/meals');
     });
