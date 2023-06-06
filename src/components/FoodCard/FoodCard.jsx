@@ -21,14 +21,13 @@ export default function FoodCard(props) {
 
   // Retorno visual
   return (
-    <div
+    <button
       className="FoodCard"
       data-testid={ `${index}-recipe-card` }
       style={ {
         border: '1px solid black',
       } }
       onClick={ redirectToDetail }
-      aria-hidden
     >
       <img
         style={ { width: '100px' } }
@@ -41,7 +40,7 @@ export default function FoodCard(props) {
       >
         { result[`str${foodType}`] }
       </h4>
-    </div>
+    </button>
   );
 }
 
