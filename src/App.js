@@ -2,29 +2,29 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import './App.css';
+import DoneRecipes from './pages/DoneRecipes/DoneRecipes';
+import FavoriteRecipes from './pages/FavoriteRecipes/FavoriteRecipes';
 import Login from './pages/Login/Login';
 import Profile from './pages/Profile/Profile';
-import DoneRecipes from './pages/DoneRecipes/DoneRecipes';
-import Recipes from './pages/Recipes/Recipes';
 import RecipeDetails from './pages/RecipeDetails/RecipeDetails';
 import RecipeInProgress from './pages/RecipeInProgress/RecipeInProgress';
-import FavoriteRecipes from './pages/FavoriteRecipes/FavoriteRecipes';
+import Recipes from './pages/Recipes/Recipes';
 
 function App() {
   return (
     <div>
       <Switch>
         <Route exact path="/" component={ Login } />
-        <Route exact path="/meals/:id-da-receita" component={ RecipeDetails } />
-        <Route exact path="/drinks/:id-da-receita" component={ RecipeDetails } />
+        <Route exact path="/meals/:id" component={ RecipeDetails } />
+        <Route exact path="/drinks/:id" component={ RecipeDetails } />
         <Route
           exact
-          path="/meals/:id-da-receita/in-progress"
+          path="/meals/:id/in-progress"
           component={ RecipeInProgress }
         />
         <Route
           exact
-          path="/drinks/:id-da-receita/in-progress"
+          path="/drinks/:id/in-progress"
           component={ RecipeInProgress }
         />
         <Route exact path="/meals" component={ Recipes } />
