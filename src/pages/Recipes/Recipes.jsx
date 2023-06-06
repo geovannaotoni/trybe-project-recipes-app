@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import FoodCard from '../../components/FoodCard/FoodCard';
+import FoodCategories from '../../components/FoodCategories/FoodCategories';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/footer/Footer';
 import RecipesContext from '../../context/RecipesContext';
@@ -40,6 +41,7 @@ function Recipes() {
   return (
     <div>
       <Header pageTitle={ API_URL.toCapitalize(pathname) } />
+      <FoodCategories />
       {
         results
         && results.map((result, index) => (
