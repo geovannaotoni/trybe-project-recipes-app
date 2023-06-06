@@ -2,11 +2,11 @@ import React from 'react';
 import { screen, act } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import App from '../App';
-import renderWithRouter from './utils/renderWithRouter';
+import renderWithRouterAndContext from './utils/renderWithRouterAndContext';
 
 describe('Testes para o componente Footer', () => {
   it('Verifica os elementos presentes no componente', () => {
-    const { history } = renderWithRouter(<App />);
+    const { history } = renderWithRouterAndContext(<App />);
     act(() => {
       history.push('/profile');
     });
