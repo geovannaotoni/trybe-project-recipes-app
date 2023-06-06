@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import Swal from 'sweetalert2';
+// import Swal from 'sweetalert2';
 import RecipesContext from '../../context/RecipesContext';
 import { fetchAPI } from '../../services/fetchAPI';
 
@@ -39,17 +39,18 @@ export default function SearchBar() {
     if (results) {
       if (results.length === 1) {
         const path = pathname.replace('/', '');
-        const id = `id${capitalize(path)}`;
-        // console.log(path, results, id);
-        history.push(`/${path}/${results[0][id]}`);
+        const id = `id${capitalize(path)}`; // para obter o id que está contido na chave idMeals ou idDrink
+        console.log(path, results, id);
+        history.push(`/${path}/${results[0][id]}`); // redireciona para a rota com o id
       } else if (results.length === 0) {
         console.log('ZERO');
-        Swal.fire({
-          icon: 'warning',
-          title: 'Oops...',
-          text: 'Sorry, we haven\'t found any recipes for these filters.',
-          confirmButtonColor: 'yellow',
-        });
+        global.alert('Sorry, we haven\'t found any recipes for these filters.');
+        // Swal.fire({
+        //   icon: 'warning',
+        //   title: 'Oops...',
+        //   text: 'Sorry, we haven\'t found any recipes for these filters.',
+        //   confirmButtonColor: 'yellow',
+        // });
       }
     }
   }, [results]);
@@ -73,12 +74,13 @@ export default function SearchBar() {
       // console.log('apiData', apiData);
       setResults(apiData[path] ?? []);
     } catch (error) {
-      Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: error.message,
-        confirmButtonColor: '#dd6b55',
-      });
+      global.alert(error.message);
+      // Swal.fire({
+      //   icon: 'error',
+      //   title: 'Oops...',
+      //   text: error.message,
+      //   confirmButtonColor: '#dd6b55',
+      // });
     }
   };
 
@@ -90,7 +92,7 @@ export default function SearchBar() {
         value={ searchInput }
         onChange={ ({ target }) => setSearchInput(target.value) }
         placeholder="Digite aqui"
-        // maxLength={ radioInput === 'First letter' ? 1 : '' } --> antiTrybe
+        // maxLength={ radioInput === 'First letter' ? 1 : '' }
       />
 
       <div>
