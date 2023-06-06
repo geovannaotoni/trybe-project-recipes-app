@@ -41,9 +41,9 @@ export default function FoodCategories() {
       } else {
         // console.log('ANTES', API_URL[path].filter + target.innerText);
         const URL = API_URL[path].filter + target.innerText;
-        console.log(URL);
+        // console.log(URL);
         const data = await fetchAPI(URL);
-        console.log('DEPOIS', data[path]);
+        // console.log('DEPOIS', data[path]);
         setResults(data[path]);
         setActiveCategory(target.innerText);
       }
