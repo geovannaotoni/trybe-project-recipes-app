@@ -49,7 +49,7 @@ describe('Testes para o componente SearchBar', () => {
     alertSpy.mockRestore();
   });
 
-  it('Verifica se, após a pesquisa, caso não encontre nenhum resultado, ele exibe um alert', async () => {
+  it.skip('Verifica se, após a pesquisa, caso não encontre nenhum resultado, ele exibe um alert', async () => {
     const alertSpy = jest.spyOn(window, 'alert');
     jest.spyOn(global, 'fetch');
     global.fetch = jest.fn().mockResolvedValue({

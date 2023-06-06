@@ -6,7 +6,8 @@ import { getFromStorage } from '../../services/localStorage';
 
 function Profile() {
   const history = useHistory();
-  const emails = getFromStorage('user');
+  const emailFromStorage = getFromStorage('user') || ({ email: '' });
+  const { email } = emailFromStorage;
 
   const cleanLocalStorage = () => {
     localStorage.clear();
@@ -17,7 +18,7 @@ function Profile() {
     <div>
       <Header pageTitle="Profile" />
       <div>
-        <p data-testid="profile-email">{emails}</p>
+        <p data-testid="profile-email">{email}</p>
         <button
           onClick={ () => history.push('/done-recipes') }
           data-testid="profile-done-btn"

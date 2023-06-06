@@ -19,11 +19,12 @@ function Recipes() {
 
   // Effect
   useEffect(() => {
-    console.log('CARREGOU RECIPES');
+    // console.log('CARREGOU RECIPES');
     try {
       // CONSUMIR A API DE ACORDO COM O PATHNAME
       const getData = async () => {
         const data = await fetchAPI(API_URL[path].name);
+        // console.log(data);
         setResults(data[path]);
       };
       getData();
