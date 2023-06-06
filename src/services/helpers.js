@@ -6,12 +6,14 @@ export const API_URL = {
     name: 'https://www.themealdb.com/api/json/v1/1/search.php?s=',
     firstLetter: 'https://www.themealdb.com/api/json/v1/1/search.php?f=',
     categories: 'https://www.themealdb.com/api/json/v1/1/list.php?c=list',
+    filter: 'https://www.themealdb.com/api/json/v1/1/filter.php?c=',
   },
   drinks: {
     ingredient: 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=',
     name: 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=',
     firstLetter: 'https://www.thecocktaildb.com/api/json/v1/1/search.php?f=',
     categories: 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list',
+    filter: 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=',
   },
   // input: /drinks --> output: Drink (para ser usado em idDrink, strDrink, etc)
   toSingleParam: (pathname) => pathname[1].toUpperCase()
@@ -24,6 +26,8 @@ export const API_URL = {
   // Máximo de elementos por vez
   maxResults: 12,
 };
+
+export const sanitizeURL = (url) => url.replaceAll(' ', '%20');
 
 export const showError = (message) => {
   Swal.fire({
