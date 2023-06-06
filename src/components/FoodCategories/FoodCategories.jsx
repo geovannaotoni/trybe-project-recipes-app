@@ -17,6 +17,7 @@ export default function FoodCategories() {
   // const foodType = API_URL.toSingleParam(pathname);
   // State
   const [categories, setCategories] = useState(null);
+  const [activeCategory, setActiveCategory] = useState('');
   // Effect
   useEffect(() => {
     const getData = async () => {
@@ -31,12 +32,12 @@ export default function FoodCategories() {
 
   // Executar o filtro
   const handleClick = async ({ target }) => {
-    console.log('CAT CLICK', target.innerText);
     try {
       setResults(null);
-      if (target.innerText === 'All') {
+      if (target.innerText === 'All' || activeCategory === target.innerText) {
         const data = await fetchAPI(API_URL[API_URL.toParam(pathname)].name);
         setResults(data[path]);
+        setActiveCategory('');
       } else {
         // console.log('ANTES', API_URL[path].filter + target.innerText);
         const URL = API_URL[path].filter + target.innerText;
@@ -44,6 +45,7 @@ export default function FoodCategories() {
         const data = await fetchAPI(URL);
         console.log('DEPOIS', data[path]);
         setResults(data[path]);
+        setActiveCategory(target.innerText);
       }
     } catch (error) {
       showError(error.message);
