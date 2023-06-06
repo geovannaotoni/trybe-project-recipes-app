@@ -3,21 +3,7 @@ import { useHistory } from 'react-router-dom';
 // import Swal from 'sweetalert2';
 import RecipesContext from '../../context/RecipesContext';
 import { fetchAPI } from '../../services/fetchAPI';
-
-const capitalize = (text) => text[0].toUpperCase() + text.substring(1, text.length - 1);
-
-const API_URL = {
-  meals: {
-    ingredient: 'https://www.themealdb.com/api/json/v1/1/filter.php?i=',
-    name: 'https://www.themealdb.com/api/json/v1/1/search.php?s=',
-    firstLetter: 'https://www.themealdb.com/api/json/v1/1/search.php?f=',
-  },
-  drinks: {
-    ingredient: 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=',
-    name: 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=',
-    firstLetter: 'https://www.thecocktaildb.com/api/json/v1/1/search.php?f=',
-  },
-};
+import { API_URL } from '../../services/helpers';
 
 const FIRST_LETTER = 'firstLetter';
 const INGREDIENT = 'ingredient';
@@ -27,6 +13,7 @@ export default function SearchBar() {
   // History
   const history = useHistory();
   const { location: { pathname } } = history;
+  const path = API_URL.toParam(pathname); // --> /drinks --> drink
   // Estados
   const [searchInput, setSearchInput] = useState('');
   const [radioInput, setRadioInput] = useState(INGREDIENT);
@@ -38,12 +25,9 @@ export default function SearchBar() {
   useEffect(() => {
     if (results) {
       if (results.length === 1) {
-        const path = pathname.replace('/', '');
-        const id = `id${capitalize(path)}`; // para obter o id que está contido na chave idMeals ou idDrink
-        console.log(path, results, id);
+        const id = `id${API_URL.toSingleParam(pathname)}`; // para obter o id que está contido na chave idMeals ou idDrink
         history.push(`/${path}/${results[0][id]}`); // redireciona para a rota com o id
       } else if (results.length === 0) {
-        console.log('ZERO');
         global.alert('Sorry, we haven\'t found any recipes for these filters.');
         // Swal.fire({
         //   icon: 'warning',
@@ -61,10 +45,7 @@ export default function SearchBar() {
   };
 
   const handleSearchClick = async () => {
-    let URL = '';
-    const path = pathname.replace('/', '');
-
-    URL = API_URL[path][radioInput] + searchInput;
+    const URL = API_URL[path][radioInput] + searchInput;
 
     try {
       if (radioInput === FIRST_LETTER && searchInput.length > 1) {
