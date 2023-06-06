@@ -4,7 +4,7 @@ import userEvent from '@testing-library/user-event';
 import App from '../App';
 import renderWithRouterAndContext from './utils/renderWithRouterAndContext';
 
-describe('Testes para o componente Footer', () => {
+describe('Testes para o componente Header', () => {
   const searchTopBtn = 'search-top-btn';
   it('Verifica os elementos presentes no componente', () => {
     const { history } = renderWithRouterAndContext(<App />);
