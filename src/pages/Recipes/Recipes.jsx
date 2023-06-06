@@ -12,6 +12,7 @@ function Recipes() {
   // History
   const history = useHistory();
   const { location: { pathname } } = history;
+  const path = API_URL.toParam(pathname);
   // Context
   const { results, setResults } = useContext(RecipesContext);
   // State
@@ -22,8 +23,8 @@ function Recipes() {
     try {
       // CONSUMIR A API DE ACORDO COM O PATHNAME
       const getData = async () => {
-        const data = await fetchAPI(API_URL[API_URL.toParam(pathname)].name);
-        setResults(data[API_URL.toParam(pathname)]);
+        const data = await fetchAPI(API_URL[path].name);
+        setResults(data[path]);
       };
       getData();
     } catch (error) {

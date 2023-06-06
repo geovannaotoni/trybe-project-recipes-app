@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-// import RecipesContext from '../../context/RecipesContext';
+import RecipesContext from '../../context/RecipesContext';
 import { fetchAPI } from '../../services/fetchAPI';
-import { API_URL } from '../../services/helpers';
+import { API_URL, showError } from '../../services/helpers';
 
 const MAX_CATEGORIES = 5;
 
 export default function FoodCategories() {
   // Context
-  // const { setResults } = useContext(RecipesContext);
+  const { setResults } = useContext(RecipesContext);
   // History
   const history = useHistory();
   const { location: { pathname } } = history;
@@ -28,14 +28,45 @@ export default function FoodCategories() {
 
     getData();
   }, [pathname]);
+
+  // Executar o filtro
+  const handleClick = async ({ target }) => {
+    console.log('CAT CLICK', target.innerText);
+    try {
+      setResults(null);
+      if (target.innerText === 'All') {
+        const data = await fetchAPI(API_URL[API_URL.toParam(pathname)].name);
+        setResults(data[path]);
+      } else {
+        // console.log('ANTES', API_URL[path].filter + target.innerText);
+        const URL = API_URL[path].filter + target.innerText;
+        console.log(URL);
+        const data = await fetchAPI(URL);
+        console.log('DEPOIS', data[path]);
+        setResults(data[path]);
+      }
+    } catch (error) {
+      showError(error.message);
+    }
+  };
+
+  // Retorno visual
   return (
     <div className="FoodCategories">
+      <button
+        data-testid="All-category-filter"
+        onClick={ handleClick }
+      >
+        All
+
+      </button>
       {
         categories
         && categories.map(({ strCategory }, index) => (
           <button
             key={ index }
             data-testid={ `${strCategory}-category-filter` }
+            onClick={ handleClick }
           >
             {strCategory}
 
