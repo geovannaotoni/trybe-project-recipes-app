@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { fetchAPI } from '../../services/fetchAPI';
+import Recommendations from '../../components/Recommendations/Recommendations';
+import RecipeButtons from '../../components/RecipeButtons/RecipeButtons';
+import './RecipeDetails.css';
 
 function RecipeDetails() {
   const history = useHistory();
@@ -67,79 +70,65 @@ function RecipeDetails() {
     return videoId; // retorno o id
   };
 
-  const mealsPage = () => ( // renderiza a pagina de meals
+  const renderIngredients = () => (
     <div>
-      <p data-testid="recipe-title">{element.strMeal}</p>
-      <img
-        src={ element.strMealThumb }
-        alt={ element.strMeal }
-        data-testid="recipe-photo"
-      />
-      <p data-testid="recipe-category">{element.strCategory}</p>
-      <div>
-        {
-          ingredients.map((ingred, index) => (
-            <label
-              key={ ingred }
-              data-testid={ `${index}-ingredient-name-and-measure` }
-            >
-              <input type="checkbox" name="" id="" />
-              {ingred.ingredient}
-              {ingred.measure}
-            </label>
-          ))
-        }
-      </div>
-      <p data-testid="instructions">{element.strInstructions}</p>
-      <div>
-        <iframe
-          width="560"
-          height="315"
-          src={ `https://www.youtube.com/embed/${getYouTubeVideoId(element.strYoutube)}` }
-          title={ `How to make ${element.strMeal}` }
-          allow="accelerometer; autoplay;
-            clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-          data-testid="video"
-        />
-      </div>
-    </div>
-  );
-
-  const drinksPage = () => ( // renderiza a pagina de drinks
-    <div>
-      <p data-testid="recipe-title">{element.strDrink}</p>
-      <img
-        src={ element.strDrinkThumb }
-        alt={ element.strDrink }
-        data-testid="recipe-photo"
-      />
-      <p data-testid="recipe-category">{element.strAlcoholic}</p>
-      <div>
-        {
-          ingredients.map((ingred, index) => (
-            <label
-              key={ ingred }
-              data-testid={ `${index}-ingredient-name-and-measure` }
-            >
-              <input type="checkbox" name="" id="" />
-              {ingred.ingredient}
-              {ingred.measure}
-            </label>
-          ))
-        }
-      </div>
-      <p data-testid="instructions">{element.strInstructions}</p>
+      {ingredients.map((ingred, index) => (
+        <label
+          key={ ingred.ingredient }
+          data-testid={ `${index}-ingredient-name-and-measure` }
+        >
+          <input type="checkbox" name="" id="" />
+          {`${ingred.ingredient} - ${ingred.measure}`}
+        </label>
+      ))}
     </div>
   );
 
   return (
-    <div>
-      {
-        element && ( // verifica se element existe para renderizar a pagina e evitar erros
-          pageTypeMeals ? (mealsPage()) : (drinksPage()) // verificação ternaria para saber qual pagina renderizar. se o state for true ele renderiza meals, contrário drinks
-        )
-      }
+    <div className="mainRecipeDetails">
+      {element && (
+        <div className={ pageTypeMeals ? 'mealsPage' : 'drinksPage' }>
+          <p
+            data-testid="recipe-title"
+          >
+            {pageTypeMeals ? element.strMeal : element.strDrink}
+
+          </p>
+          <img
+            src={ pageTypeMeals ? element.strMealThumb : element.strDrinkThumb }
+            alt={ pageTypeMeals ? element.strMeal : element.strDrink }
+            data-testid="recipe-photo"
+          />
+          <p
+            data-testid="recipe-category"
+          >
+            {pageTypeMeals ? element.strCategory : element.strAlcoholic}
+
+          </p>
+          {renderIngredients()}
+          <p data-testid="instructions">{element.strInstructions}</p>
+          {pageTypeMeals && (
+            <div>
+              <iframe
+                width="560"
+                height="315"
+                src={ `https://www.youtube.com/embed/${getYouTubeVideoId(element.strYoutube)}` }
+                title={ `How to make ${element.strMeal}` }
+                allow="accelerometer; autoplay;
+                  clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                data-testid="video"
+              />
+            </div>
+          )}
+        </div>
+      )}
+      <div>
+        <Recommendations />
+      </div>
+      <div className="start-recipe-btn">
+        <RecipeButtons />
+      </div>
     </div>
   );
 }

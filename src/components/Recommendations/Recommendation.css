@@ -1,0 +1,31 @@
+.carousel-container {
+  box-sizing: border-box;
+  overflow-x: hidden;
+  width: 360px;
+}
+
+.carousel-slide {
+  display: flex;
+  width: 100%;
+}
+
+.carousel-slide-item {
+  box-sizing: border-box;
+  flex: 0 0 50%;
+  padding: 10px;
+  position: relative;
+  text-align: center;
+}
+
+.carousel-slide-item p {
+  background-color: rgba(0, 0, 0, 0.575);
+  color: white;
+  position: absolute;
+  text-align: center;
+  width: 90%;
+}
+
+.carousel-slide-item img {
+  height: 100%;
+  width: 100%;
+}

@@ -1,0 +1,18 @@
+.mealsPage img, .drinksPage img {
+  height: 100px;
+  width: 100px;
+}
+
+.mainRecipeDetails {
+  height: 100vh;
+  overflow: auto;
+  position: relative;
+  width: 100vw;
+}
+
+.start-recipe-btn {
+  bottom: 0;
+  position: fixed;
+  width: 100vw;
+  z-index: 99999;
+}
