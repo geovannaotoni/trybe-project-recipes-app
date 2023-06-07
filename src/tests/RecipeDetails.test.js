@@ -1,11 +1,16 @@
 import React from 'react';
-import { screen } from '@testing-library/react';
+import { screen, act } from '@testing-library/react';
 import renderWithRouter from './utils/renderWithRouter';
 import RecipeDetails from '../pages/RecipeDetails/RecipeDetails';
+import App from '../App';
 
 describe('Testes para a página de RecipeDetails', () => {
   test('Se está renderizando corretamente a pagina de meals', () => {
-    const { history } = renderWithRouter(<RecipeDetails />);
+    const { history } = renderWithRouter(<App />);
+    act(() => {
+      history.push('/meals');
+    });
+
     expect(history.location.pathname).toBe('/meals');
 
     const videoElement = screen.queryByTestId('video');

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Swiper, SwiperSlide } from 'swiper/react';
+// import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper.min.css';
 
 import { fetchAPI } from '../../services/fetchAPI';
@@ -40,7 +40,8 @@ function Recommendations() {
 
   return (
     <div className="carousel-container">
-      <Swiper
+      <h3>aaa</h3>
+      {/* <Swiper
         slidesPerView={ 2 }
         slidesPerGroup={ 2 }
         spaceBetween={ 10 }
@@ -62,7 +63,7 @@ function Recommendations() {
             />
           </SwiperSlide>
         ))}
-      </Swiper>
+      </Swiper> */}
     </div>
   );
 }
