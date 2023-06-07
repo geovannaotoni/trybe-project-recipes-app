@@ -28,11 +28,20 @@ function RecipeButtons() {
     fetchRecipeStatus();
   }, [history.location.pathname]);
 
+  const startBtn = () => { // código para que ao clicar em 'start recipe' o usuário seja redirecionado para a página de receitas em andamento
+    const link = history.location.pathname;
+    history.push(`${link}/in-progress`);
+  };
+
   let buttonContent;
   switch (recipeStatus) {
   case '':
     buttonContent = (
-      <button className="start-recipe-btn" data-testid="start-recipe-btn">
+      <button
+        className="start-recipe-btn"
+        data-testid="start-recipe-btn"
+        onClick={ startBtn }
+      >
         Start Recipe
       </button>
     );
