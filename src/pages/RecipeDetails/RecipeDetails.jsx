@@ -5,6 +5,7 @@ import Recommendations from '../../components/Recommendations/Recommendations';
 import RecipeButtons from '../../components/RecipeButtons/RecipeButtons';
 import './RecipeDetails.css';
 import FavAndShareButtons from '../../components/FavAndShareButtons/FavAndShareButtons';
+import { setOnStorage, getFromStorage } from '../../services/localStorage';
 
 function RecipeDetails() {
   const history = useHistory();
@@ -38,6 +39,7 @@ function RecipeDetails() {
       }
     };
 
+    if (!getFromStorage('favoriteRecipes')) return setOnStorage('favoriteRecipes', []);
     returnRote(type, id); // Chamando a função para fazer a requisição da API com os parametros: Type: meals ou drinks e o id do produto
   }, [id, type]); // usando type e id como parametro
 
@@ -85,7 +87,12 @@ function RecipeDetails() {
     </div>
   );
 
-  console.log(element);
+  const propsElement = () => {
+    const newElement = element;
+    return newElement;
+  };
+
+  propsElement();
   return (
     <div className="mainRecipeDetails">
       {element && (
@@ -132,7 +139,7 @@ function RecipeDetails() {
         <RecipeButtons />
       </div>
       <div className="buttonsFavAndShare">
-        <FavAndShareButtons element={ () => element } type={ type } ids={ id } />
+        <FavAndShareButtons element={ propsElement() } type={ type } ids={ id } />
       </div>
     </div>
   );
