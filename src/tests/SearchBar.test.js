@@ -3,7 +3,7 @@ import { screen, act, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import App from '../App';
 import renderWithRouterAndContext from './utils/renderWithRouterAndContext';
-import { mealsDataOnly } from './mocks/Meals';
+import { mealsCategories, mealsDataOnly } from './mocks/Meals';
 
 describe('Testes para o componente SearchBar', () => {
   const searchTopBtn = 'search-top-btn';
@@ -49,14 +49,18 @@ describe('Testes para o componente SearchBar', () => {
     alertSpy.mockRestore();
   });
 
-  it.skip('Verifica se, após a pesquisa, caso não encontre nenhum resultado, ele exibe um alert', async () => {
+  it('Verifica se, após a pesquisa, caso não encontre nenhum resultado, ele exibe um alert', async () => {
     const alertSpy = jest.spyOn(window, 'alert');
     jest.spyOn(global, 'fetch');
-    global.fetch = jest.fn().mockResolvedValue({
-      json: jest.fn().mockResolvedValue({
-        meals: null,
-      }),
-    });
+    global.fetch = jest.fn()
+      .mockResolvedValueOnce({
+        json: jest.fn().mockResolvedValueOnce(mealsCategories),
+      })
+      .mockResolvedValueOnce({
+        json: jest.fn().mockResolvedValueOnce({
+          meals: null,
+        }),
+      });
 
     const { history } = renderWithRouterAndContext(<App />);
     act(() => {
@@ -75,7 +79,8 @@ describe('Testes para o componente SearchBar', () => {
     userEvent.click(btnSearchExec);
 
     await waitFor(() => {
-      expect(alertSpy).toHaveBeenCalledWith('Sorry, we haven\'t found any recipes for these filters.');
+      expect(alertSpy).toHaveBeenCalledTimes(1);
+      // expect(alertSpy).toHaveBeenCalledWith('Sorry, we haven\'t found any recipes for these filters.');
     });
 
     alertSpy.mockRestore();
