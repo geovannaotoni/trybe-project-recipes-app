@@ -16,7 +16,7 @@ function DoneRecipes() {
     image: 'imagem-da-receita',
     doneDate: 'quando-a-receita-foi-concluida',
     tags: ['1', '2', '3'],
-  }]); // deixei um exemplo do retorno do localStorage de teste - retirar depois
+  }]); // deixei um exemplo do retorno do localStorage de teste - retirar depois e deixar somente []
   const [shareBtn, setShareBtn] = useState(false);
   const [filterType, setFilterType] = useState('');
 
