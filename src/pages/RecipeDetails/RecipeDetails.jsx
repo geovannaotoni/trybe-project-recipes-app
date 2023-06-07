@@ -4,6 +4,7 @@ import { fetchAPI } from '../../services/fetchAPI';
 import Recommendations from '../../components/Recommendations/Recommendations';
 import RecipeButtons from '../../components/RecipeButtons/RecipeButtons';
 import './RecipeDetails.css';
+import FavAndShareButtons from '../../components/FavAndShareButtons/FavAndShareButtons';
 
 function RecipeDetails() {
   const history = useHistory();
@@ -28,11 +29,11 @@ function RecipeDetails() {
     const returnRote = async (tipo, ide) => {
       if (tipo === 'meals') {
         const meals = await fetchAPI(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${ide}`);
-        setElement(meals.meals[0]); // estou setando o state element um objeto com o retono da requisição a API com as informações do meals obs.: {meals: [{}]}
+        setElement(await meals.meals[0]); // estou setando o state element um objeto com o retono da requisição a API com as informações do meals obs.: {meals: [{}]}
         setPageTypeMeals(true); // afirmando que a page é do tipo meals
       } else if (tipo === 'drinks') {
         const drinks = await fetchAPI(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${ide}`);
-        setElement(drinks.drinks[0]); // estou setando o state element um objeto com o retono da requisição a API com as informações do drink obs.: {drinks: [{}]}
+        setElement(await drinks.drinks[0]); // estou setando o state element um objeto com o retono da requisição a API com as informações do drink obs.: {drinks: [{}]}
         setPageTypeMeals(false); // afirmando que a page é to tipo drink
       }
     };
@@ -84,6 +85,7 @@ function RecipeDetails() {
     </div>
   );
 
+  console.log(element);
   return (
     <div className="mainRecipeDetails">
       {element && (
@@ -128,6 +130,9 @@ function RecipeDetails() {
       </div>
       <div className="start-recipe-btn">
         <RecipeButtons />
+      </div>
+      <div className="buttonsFavAndShare">
+        <FavAndShareButtons element={ () => element } type={ type } ids={ id } />
       </div>
     </div>
   );
