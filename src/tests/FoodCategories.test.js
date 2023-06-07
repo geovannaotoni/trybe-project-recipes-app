@@ -6,6 +6,7 @@ import renderWithRouterAndContext from './utils/renderWithRouterAndContext';
 import { mealsCategories, mealsData } from './mocks/Meals';
 
 describe('Teste para o componente FoodCategories', () => {
+  const firstFoodCard = '0-recipe-card';
   it('Verifica se ele realiza os filtros corretamente', async () => {
     jest.spyOn(global, 'fetch');
     global.fetch = jest.fn()
@@ -25,6 +26,9 @@ describe('Teste para o componente FoodCategories', () => {
             },
           ],
         }),
+      })
+      .mockResolvedValueOnce({
+        json: jest.fn().mockResolvedValueOnce(mealsData),
       });
 
     const { history } = renderWithRouterAndContext(<App />);
@@ -37,9 +41,16 @@ describe('Teste para o componente FoodCategories', () => {
     });
 
     await waitFor(() => {
-      expect(screen.getByTestId('0-recipe-card')).toBeInTheDocument();
-      expect(screen.getByTestId('0-recipe-card')).toHaveTextContent('Mbuzi Choma (Roasted Goat)');
+      expect(screen.getByTestId(firstFoodCard)).toBeInTheDocument();
+      expect(screen.getByTestId(firstFoodCard)).toHaveTextContent('Mbuzi Choma (Roasted Goat)');
     });
+
+    userEvent.click(screen.getByTestId('All-category-filter'));
+    await waitFor(() => {
+      expect(screen.getByTestId(firstFoodCard)).toBeInTheDocument();
+      expect(screen.getByTestId(firstFoodCard)).toHaveTextContent('Apam balik');
+    });
+
     global.fetch.mockRestore();
   });
 });
