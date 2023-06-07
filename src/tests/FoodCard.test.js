@@ -10,17 +10,12 @@ describe('Teste para o componente FoodCard', () => {
     act(() => {
       history.push('/meals');
     });
-    // const beefCategoryFilter = screen.queryByTestId('Beef-category-filter');
-    // if (!beefCategoryFilter) {
-    //   await waitFor(() => {
-    //     expect(screen.getByTestId('Beef-category-filter')).toBeInTheDocument();
-    //   });
-    // }
-    // await waitFor(() => {
-    //   const foodCard = screen.getByTestId('0-recipe-card');
-    //   userEvent.click(foodCard);
-    // });
-    // expect(history.location.pathname).toBe('/meals/52977');
+    const beefCategoryFilter = screen.queryByTestId('Beef-category-filter');
+    if (!beefCategoryFilter) {
+      await waitFor(() => {
+        expect(screen.getByTestId('Beef-category-filter')).toBeInTheDocument();
+      });
+    }
     await waitFor(() => {
       expect(screen.getByTestId('0-recipe-card')).toBeInTheDocument();
       userEvent.click(screen.getByTestId('0-recipe-card'));
