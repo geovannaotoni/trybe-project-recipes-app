@@ -3,7 +3,7 @@ import { screen, act, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import App from '../App';
 import renderWithRouterAndContext from './utils/renderWithRouterAndContext';
-import { mealsCategories, mealsDataOnly } from './mocks/Meals';
+import { mealsCategories, mealsData, mealsDataOnly } from './mocks/Meals';
 
 describe('Testes para o componente SearchBar', () => {
   const searchTopBtn = 'search-top-btn';
@@ -57,6 +57,9 @@ describe('Testes para o componente SearchBar', () => {
         json: jest.fn().mockResolvedValueOnce(mealsCategories),
       })
       .mockResolvedValueOnce({
+        json: jest.fn().mockResolvedValueOnce(mealsData),
+      })
+      .mockResolvedValueOnce({
         json: jest.fn().mockResolvedValueOnce({
           meals: null,
         }),
@@ -80,7 +83,7 @@ describe('Testes para o componente SearchBar', () => {
 
     await waitFor(() => {
       expect(alertSpy).toHaveBeenCalledTimes(1);
-      // expect(alertSpy).toHaveBeenCalledWith('Sorry, we haven\'t found any recipes for these filters.');
+      expect(alertSpy).toHaveBeenCalledWith('Sorry, we haven\'t found any recipes for these filters.');
     });
 
     alertSpy.mockRestore();
