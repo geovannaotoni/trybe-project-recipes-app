@@ -1,0 +1,44 @@
+.carousel-container {
+  display: flex;
+  height: 200px;
+  margin: 0 auto;
+  max-width: 90vw;
+  overflow-x: scroll;
+  white-space: nowrap;
+  width: 100%;
+}
+
+.carousel-slide-item {
+  align-items: center;
+  background-color: #f0f0f0;
+  border: 1px solid black;
+  border-radius: 8px;
+  box-sizing: border-box;
+  display: flex;
+  flex: 0 0 auto;       /* Adicionado */
+  justify-content: center;
+  margin: 4.5px;
+  padding: 20px;
+  position: relative;
+  width: 160px;
+}
+
+.carousel-slide-item:last-child {
+  margin-right: 0;  /* Adicionado */
+}
+
+.carousel-slide-item p {
+  font-weight: 700;
+  margin-bottom: 10px;
+  position: absolute;
+  text-align: center;
+  top: 5px;
+  z-index: 500;
+}
+
+.carousel-slide-item img {
+  border-radius: 8px;
+  height: auto;
+  width: 100%;
+  z-index: 0;
+}
