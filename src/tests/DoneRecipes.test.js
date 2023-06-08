@@ -1,41 +1,43 @@
-import { act, screen } from '@testing-library/react';
+import { act, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
+// import clipboardCopy from 'clipboard-copy';
 import App from '../App';
 import renderWithRouterAndContext from './utils/renderWithRouterAndContext';
 
+const doneRecipes = [{
+  id: 'id-01',
+  type: 'meal',
+  nationality: 'nacionalidade',
+  category: 'categoria',
+  alcoholicOrNot: '',
+  name: 'nome-meal',
+  image: 'imagem-da-meal',
+  doneDate: '01.01.2021',
+  tags: ['1', '2', '3'],
+},
+{
+  id: 'id-02',
+  type: 'drink',
+  nationality: '',
+  category: '',
+  alcoholicOrNot: 'alcoholic',
+  name: 'nome-drink',
+  image: 'imagem-do-drink',
+  doneDate: '02.02.2022',
+  tags: [],
+}];
+
 describe('Testes para o componente DoneRecipes', () => {
   beforeEach(() => {
-    const doneRecipes = [{
-      id: 'id-01',
-      type: 'meal',
-      nationality: 'nacionalidade',
-      category: 'categoria',
-      alcoholicOrNot: '',
-      name: 'nome-meal',
-      image: 'imagem-da-meal',
-      doneDate: '01.01.2021',
-      tags: ['1', '2', '3'],
-    },
-    {
-      id: 'id-02',
-      type: 'drink',
-      nationality: '',
-      category: '',
-      alcoholicOrNot: 'alcoholic',
-      name: 'nome-drink',
-      image: 'imagem-do-drink',
-      doneDate: '02.02.2022',
-      tags: [],
-    }];
     localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
+
     jest.spyOn(Object.getPrototypeOf(global.localStorage), 'getItem')
       .mockReturnValue(JSON.stringify(doneRecipes));
-    const { history } = renderWithRouterAndContext(<App />);
-    act(() => {
-      history.push('/done-recipes');
-    });
+
+    renderWithRouterAndContext(<App />, '/done-recipes');
   });
+
   it('Verifica os botôes de filtro', async () => {
     const btnAll = screen.getByTestId('filter-by-all-btn');
     const btnMeals = screen.getByTestId('filter-by-meal-btn');
@@ -44,30 +46,8 @@ describe('Testes para o componente DoneRecipes', () => {
     expect(btnMeals).toBeInTheDocument();
     expect(btnDrink).toBeInTheDocument();
   });
-  it('verifica se renderiza as receitas feitas', async () => {
-    const doneRecipes = [{
-      id: 'id-01',
-      type: 'meal',
-      nationality: 'nacionalidade',
-      category: 'categoria',
-      alcoholicOrNot: '',
-      name: 'nome-meal',
-      image: 'imagem-da-meal',
-      doneDate: '01.01.2021',
-      tags: ['1', '2', '3'],
-    },
-    {
-      id: 'id-02',
-      type: 'drink',
-      nationality: '',
-      category: '',
-      alcoholicOrNot: 'alcoholic-ou-non-alcoholic-ou-texto-vazio',
-      name: 'nome-drink',
-      image: 'imagem-do-drink',
-      doneDate: '02.02.2022',
-      tags: [],
-    }];
 
+  it('verifica se renderiza as receitas feitas', async () => {
     doneRecipes.forEach(async (recipe, index) => {
       expect(await screen
         .findByTestId(`${index}-horizontal-image`)).toBeInTheDocument();
@@ -92,36 +72,12 @@ describe('Testes para o componente DoneRecipes', () => {
       }
     });
   });
-  it('verifica se filtra corretamente as comida quando clicada no mils', async () => {
-    const doneRecipes = [{
-      id: 'id-01',
-      type: 'meal',
-      nationality: 'nacionalidade',
-      category: 'categoria',
-      alcoholicOrNot: '',
-      name: 'nome-meal',
-      image: 'imagem-da-meal',
-      doneDate: '01.01.2021',
-      tags: ['1', '2', '3'],
-    },
-    {
-      id: 'id-02',
-      type: 'drink',
-      nationality: '',
-      category: '',
-      alcoholicOrNot: 'alcoholic-ou-non-alcoholic-ou-texto-vazio',
-      name: 'nome-drink',
-      image: 'imagem-do-drink',
-      doneDate: '02.02.2022',
-      tags: [],
-    }];
+
+  it('verifica se filtra corretamente as comidas ao clicar no botão Meals', async () => {
     const btnMeals = screen.getByTestId('filter-by-meal-btn');
     act(() => {
       userEvent.click(btnMeals);
     });
-    // waitForElementToBeRemoved(() => {
-    //   screen.queryByText('nome-drink');
-    // });
     doneRecipes.forEach(async (recipe, index) => {
       if (recipe.type === 'meal') {
         expect(await screen
@@ -133,10 +89,46 @@ describe('Testes para o componente DoneRecipes', () => {
           .toBeInTheDocument();
         expect(screen.queryByTestId(`${index}-3-horizontal-tag`))
           .not.toBeInTheDocument();
-      } else if (recipe.type === 'drink') {
-        expect(await screen.findByTestId(`${index}-horizontal-top-text`))
+      }
+      if (recipe.type === 'drink') {
+        expect(screen.queryByTestId(`${index}-horizontal-top-text`)).not
           .toBeInTheDocument();
       }
     });
+  });
+
+  it('verifica se filtra corretamente as bebidas ao clicar no botão Drinks e retira o filtro ao clicar em All', async () => {
+    const firstElementTestId = '0-horizontal-name';
+    const btnDrinks = screen.getByTestId('filter-by-drink-btn');
+
+    expect(await screen.findByTestId(firstElementTestId))
+      .toHaveTextContent('nome-meal');
+
+    act(() => {
+      userEvent.click(btnDrinks);
+    });
+
+    waitFor(async () => {
+      expect(await screen.findByTestId(firstElementTestId))
+        .toHaveTextContent('nome-drink');
+    });
+
+    const btnAll = screen.getByTestId('filter-by-all-btn');
+    act(() => {
+      userEvent.click(btnAll);
+    });
+    expect(await screen.findByTestId(firstElementTestId))
+      .toHaveTextContent('nome-meal');
+  });
+
+  it('Testa o botão de compartilhar', async () => {
+    // const clipboardSpy = jest.spyOn(clipboardCopy);
+
+    // const shareBtn = screen.getByTestId('0-horizontal-share-btn');
+    // act(() => {
+    //   userEvent.click(shareBtn);
+    // });
+    // expect(screen.getByText('Link copied!')).toBeInTheDocument();
+    // expect(clipboardSpy).toHaveBeenCalledWith('http://localhost:3000/meals/id-01');
   });
 });
