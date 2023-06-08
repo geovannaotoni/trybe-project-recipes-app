@@ -1,7 +1,7 @@
 import React from 'react';
 import { screen, act, waitFor } from '@testing-library/react';
-import renderWithRouter from './utils/renderWithRouter';
 import App from '../App';
+import renderWithRouter from './utils/renderWithRouter';
 
 describe('Testes para a página de RecipeDetails', () => {
   test('Se está renderizando corretamente a pagina de meals', async () => {
