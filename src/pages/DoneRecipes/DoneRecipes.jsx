@@ -6,17 +6,7 @@ import { getFromStorage } from '../../services/localStorage';
 import shareIconImage from '../../images/shareIcon.svg';
 
 function DoneRecipes() {
-  const [doneRecipes, setDoneRecipes] = useState([{
-    id: 'id-da-receita',
-    type: 'meal',
-    nationality: 'nacionalidade-da-receita-ou-texto-vazio',
-    category: 'categoria-da-receita-ou-texto-vazio',
-    alcoholicOrNot: 'alcoholic-ou-non-alcoholic-ou-texto-vazio',
-    name: 'nome-da-receita',
-    image: 'imagem-da-receita',
-    doneDate: 'quando-a-receita-foi-concluida',
-    tags: ['1', '2', '3'],
-  }]); // deixei um exemplo do retorno do localStorage de teste - retirar depois e deixar somente []
+  const [doneRecipes, setDoneRecipes] = useState([]);
   const [shareBtn, setShareBtn] = useState(false);
   const [filterType, setFilterType] = useState('');
 

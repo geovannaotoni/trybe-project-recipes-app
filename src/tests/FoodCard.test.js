@@ -28,6 +28,7 @@ describe('Teste para o componente FoodCard', () => {
     }
     await waitFor(() => {
       expect(screen.getByTestId('0-recipe-card')).toBeInTheDocument();
+      expect(screen.queryByTestId('13-recipe-card')).not.toBeInTheDocument();
       userEvent.click(screen.getByTestId('0-recipe-card'));
     });
     expect(history.location.pathname).toBe('/meals/53049');

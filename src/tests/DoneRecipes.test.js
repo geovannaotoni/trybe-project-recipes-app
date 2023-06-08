@@ -1,7 +1,7 @@
 import { act, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
-// import clipboardCopy from 'clipboard-copy';
+import clipboardCopy from 'clipboard-copy';
 import App from '../App';
 import renderWithRouterAndContext from './utils/renderWithRouterAndContext';
 
@@ -120,15 +120,28 @@ describe('Testes para o componente DoneRecipes', () => {
     expect(await screen.findByTestId(firstElementTestId))
       .toHaveTextContent('nome-meal');
   });
+});
 
-  it('Testa o botão de compartilhar', async () => {
-    // const clipboardSpy = jest.spyOn(clipboardCopy);
+jest.mock('clipboard-copy');
+describe('Teste da função clipboard-copy', () => {
+  beforeEach(() => {
+    localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
 
-    // const shareBtn = screen.getByTestId('0-horizontal-share-btn');
-    // act(() => {
-    //   userEvent.click(shareBtn);
-    // });
-    // expect(screen.getByText('Link copied!')).toBeInTheDocument();
-    // expect(clipboardSpy).toHaveBeenCalledWith('http://localhost:3000/meals/id-01');
+    jest.spyOn(Object.getPrototypeOf(global.localStorage), 'getItem')
+      .mockReturnValue(JSON.stringify(doneRecipes));
+
+    navigator.clipboard = {
+      writeText: jest.fn(),
+    };
+
+    renderWithRouterAndContext(<App />, '/done-recipes');
+  });
+
+  it('Testa se o botão de compartilhar chama a função clipboard-copy', async () => {
+    const shareBtn = screen.getByTestId('0-horizontal-share-btn');
+    act(() => {
+      userEvent.click(shareBtn);
+    });
+    expect(clipboardCopy).toBeCalledWith('http://localhost/meals/id-01');
   });
 });
