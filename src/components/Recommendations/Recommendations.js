@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-// import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/swiper.min.css';
 
 import { fetchAPI } from '../../services/fetchAPI';
 import './Recommendation.css';
@@ -36,20 +34,12 @@ function Recommendations() {
   }, [history.location.pathname]);
 
   const reducerRecommendations = recommendations.slice(0, maxRecommendations);
-  console.log(reducerRecommendations.length);
 
   return (
     <div className="carousel-container">
-      <h3>aaa</h3>
-      {/* <Swiper
-        slidesPerView={ 2 }
-        slidesPerGroup={ 2 }
-        spaceBetween={ 10 }
-        navigation
-        pagination
-      >
-        {reducerRecommendations.map((recipe, index) => (
-          <SwiperSlide
+      {
+        reducerRecommendations.map((recipe, index) => (
+          <div
             key={ recipe.idMeal || recipe.idDrink }
             data-testid={ `${index}-recommendation-card` }
             className="carousel-slide-item"
@@ -61,9 +51,9 @@ function Recommendations() {
               src={ recipe.strDrinkThumb || recipe.strMealThumb }
               alt={ recipe.strMeal || recipe.strDrink }
             />
-          </SwiperSlide>
-        ))}
-      </Swiper> */}
+          </div>
+        ))
+      }
     </div>
   );
 }

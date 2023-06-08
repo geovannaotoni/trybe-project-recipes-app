@@ -114,6 +114,9 @@ function RecipeDetails() {
             {pageTypeMeals ? element.strCategory : element.strAlcoholic}
 
           </p>
+          <div className="slc">
+            <Recommendations />
+          </div>
           {renderIngredients()}
           <p data-testid="instructions">{element.strInstructions}</p>
           {pageTypeMeals && (
@@ -132,9 +135,6 @@ function RecipeDetails() {
           )}
         </div>
       )}
-      <div>
-        <Recommendations />
-      </div>
       <div className="start-recipe-btn">
         <RecipeButtons />
       </div>
