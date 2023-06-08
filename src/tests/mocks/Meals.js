@@ -60,6 +60,11 @@ export const mealsData = {
       strMealThumb: 'https://www.themealdb.com/images/media/meals/xqwwpy1483908697.jpg',
       idMeal: '52792',
     },
+    {
+      strMeal: 'Breakfast Potatoes',
+      strMealThumb: 'https://www.themealdb.com/images/media/meals/1550441882.jpg',
+      idMeal: '52965',
+    },
   ],
 };
 
