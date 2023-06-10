@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import FavAndShareButtons from '../../components/FavAndShareButtons/FavAndShareButtons';
-import RecipeBottomButton from '../../components/RecipeButtons/RecipeBottomButton';
 import RecipeContent from '../../components/RecipeContent/RecipeContent';
 import Recommendations from '../../components/Recommendations/Recommendations';
 import { fetchAPI } from '../../services/fetchAPI';
@@ -30,7 +29,7 @@ function RecipeDetails() {
             <FavAndShareButtons food={ food } />
             <RecipeContent food={ food } />
             <Recommendations />
-            <RecipeBottomButton id={ id } />
+
           </>
         )
       }
