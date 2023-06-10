@@ -6,6 +6,7 @@
 .mainRecipeDetails {
   height: 100vh;
   overflow: auto;
+  padding: 44px 0;
   position: relative;
   width: 100vw;
 }
@@ -23,12 +24,12 @@
   top: 10px;
 }
 
-.slc {
+/* .slc {
   box-sizing: border-box;
   margin: 0 auto 50px;
 
-  /* max-height: 600px; */
+   max-height: 600px;
   overflow-x: scroll;
   overflow-y: hidden;
   width: 100vw;
-}
+} */

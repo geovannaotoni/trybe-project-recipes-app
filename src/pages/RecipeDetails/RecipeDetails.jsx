@@ -26,9 +26,9 @@ function RecipeDetails() {
       {
         food && (
           <>
+            <Recommendations />
             <FavAndShareButtons food={ food } />
             <RecipeContent food={ food } />
-            <Recommendations />
 
           </>
         )

@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { getFromStorage, setOnStorage } from '../../services/localStorage';
 import RecipeBottomButton from '../RecipeBottomButton/RecipeBottomButton';
 import VideoFrame from '../VideoFrame/VideoFrame';
 
@@ -22,6 +23,13 @@ export default function RecipeContent(props) {
 
   useEffect(() => {
     if (food) {
+      let inProgressIng;
+      if (isInProgress) {
+        const inProgressRecipes = getFromStorage('inProgressRecipes');
+        inProgressIng = inProgressRecipes
+          ? inProgressRecipes[type][food.idMeal || food.idDrink] : [];
+        console.log(inProgressRecipes, inProgressIng);
+      }
       const newIngredients = Object.keys(food)
         .filter((key) => key.includes('strIngredient') && food[key])
         .map((key) => {
@@ -29,19 +37,30 @@ export default function RecipeContent(props) {
           return {
             ingredient: food[key],
             measure: food[measureKey] || '',
-            isChecked: false,
+            isChecked: isInProgress
+            && inProgressIng
+            && inProgressIng.some((ing) => ing === food[key]),
           };
         });
 
       setIngredients(newIngredients);
     }
-  }, [food]);
+  }, [food, isInProgress, type]);
 
   useEffect(() => {
     if (isInProgress) {
       setButtonDisabled(!ingredients.every(({ isChecked }) => isChecked));
     }
   }, [ingredients, isInProgress]);
+
+  const saveProgressInLS = (arrayIng) => {
+    const inProgressRecipes = getFromStorage('inProgressRecipes')
+    || { drinks: {}, meals: {} };
+    inProgressRecipes[type][food.idMeal || food.idDrink] = arrayIng
+      .filter((ing) => ing.isChecked)
+      .map(({ ingredient }) => ingredient);
+    setOnStorage('inProgressRecipes', inProgressRecipes);
+  };
 
   const handleCheck = ({ target }) => {
     console.log('target.value', target.value);
@@ -53,7 +72,7 @@ export default function RecipeContent(props) {
         }
         return ing;
       });
-
+      saveProgressInLS(newIng);
       return newIng;
     });
   };
@@ -108,7 +127,7 @@ export default function RecipeContent(props) {
       <p data-testid="instructions">{food.strInstructions}</p>
       {showVideo && <VideoFrame food={ food } />}
       <RecipeBottomButton
-        id={ food.idMeal || food.idDrink }
+        food={ food }
         buttonDisabled={ buttonDisabled }
       />
     </div>

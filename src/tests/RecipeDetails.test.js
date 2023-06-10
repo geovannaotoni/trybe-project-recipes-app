@@ -5,11 +5,7 @@ import App from '../App';
 import RecipeDetails from '../pages/RecipeDetails/RecipeDetails';
 import renderWithRouterAndContext from './utils/renderWithRouterAndContext';
 
-const fetchAPI = require('../services/fetchAPI');
-
 const URL_MEAL = '/meals/52771';
-
-jest.mock('../services/fetchAPI');
 
 describe('Testes para a página de RecipeDetails', () => {
   test.only('Se está renderizando corretamente a página de meals', async () => {
@@ -92,7 +88,7 @@ describe('Testes para a página de RecipeDetails', () => {
   });
 
   test('Teste as recomendações', () => {
-    const { history } = renderWithRouterAndContext(<App />, '/meals/52771');
+    renderWithRouterAndContext(<App />, '/meals/52771');
     waitFor(async () => {
       const recommendationCards = await screen.findAllByTestId(/recommendation-card/i);
       expect(recommendationCards).toHaveLength(6);

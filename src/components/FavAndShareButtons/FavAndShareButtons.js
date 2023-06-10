@@ -57,7 +57,7 @@ function FavAndShareButtons(props) {
 
   const handleCopyLink = () => { // Função para copiar o link
     const Wait = 2000;
-    const link = window.location.href;
+    const link = `${window.location.origin}/${type}/${id}`;
     clipboardCopy(link);
     setLinkCopied(true);
     global.alert('Link copied!');
