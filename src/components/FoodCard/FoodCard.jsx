@@ -7,15 +7,14 @@ export default function FoodCard(props) {
   // History
   const history = useHistory();
   const { location: { pathname } } = history;
-  const path = API_URL.toParam(pathname);
   // const pathCap = API_URL.toCapitalize(pathname);
   const foodType = API_URL.toSingleParam(pathname);
   // console.log(props); --> results e index
   const { index, result } = props;
 
   const redirectToDetail = () => {
-    const id = result[`id${foodType}`];
-    const newPath = `/${path}/${id}`;
+    const id = result.idMeal || result.idDrink;
+    const newPath = `${pathname}/${id}`;
     history.push(newPath);
   };
 
@@ -30,16 +29,16 @@ export default function FoodCard(props) {
       onClick={ redirectToDetail }
     >
       <img
-        style={ { width: '100px' } }
+        style={ { width: '80px' } }
         data-testid={ `${index}-card-img` }
         src={ result[`str${foodType}Thumb`] }
         alt={ result[`str${foodType}`] }
       />
-      <h4
+      <p
         data-testid={ `${index}-card-name` }
       >
         { result[`str${foodType}`] }
-      </h4>
+      </p>
     </button>
   );
 }

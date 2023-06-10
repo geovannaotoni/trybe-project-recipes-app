@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 // import Swal from 'sweetalert2';
 import RecipesContext from '../../context/RecipesContext';
@@ -12,7 +12,7 @@ const NAME = 'name';
 export default function SearchBar() {
   // History
   const history = useHistory();
-  const { location: { pathname } } = history;
+  const { pathname } = history.location;
   const path = API_URL.toParam(pathname); // --> /drinks --> drink
   // Estados
   const [searchInput, setSearchInput] = useState('');
@@ -20,24 +20,6 @@ export default function SearchBar() {
 
   // Context
   const { results, setResults } = useContext(RecipesContext);
-
-  // Effect
-  useEffect(() => {
-    if (results) {
-      if (results.length === 1) {
-        const id = `id${API_URL.toSingleParam(pathname)}`; // para obter o id que está contido na chave idMeals ou idDrink
-        history.push(`/${path}/${results[0][id]}`); // redireciona para a rota com o id
-      } else if (results.length === 0) {
-        global.alert('Sorry, we haven\'t found any recipes for these filters.');
-        // Swal.fire({
-        //   icon: 'warning',
-        //   title: 'Oops...',
-        //   text: 'Sorry, we haven\'t found any recipes for these filters.',
-        //   confirmButtonColor: 'yellow',
-        // });
-      }
-    }
-  }, [results]);
 
   const handleRadioChange = ({ target }) => {
     setSearchInput('');
@@ -53,15 +35,21 @@ export default function SearchBar() {
       }
       const apiData = await fetchAPI(URL);
       // console.log('apiData', apiData);
-      setResults(apiData[path] ?? []);
+      if (!apiData) {
+        throw new Error('Sorry, we haven\'t found any recipes for these filters.');
+      }
+      if (apiData.length === 1) {
+        const [result] = results;
+        const id = result.idMeal || result.idDrink; // para obter o id que está contido na chave idMeals ou idDrink
+        history.push(`${pathname}/${id}`); // redireciona para a rota com o id
+      } else if (apiData.length > API_URL.maxResults) {
+        setResults(apiData.slice(0, API_URL.maxResults));
+      } else {
+        setResults(apiData ?? []);
+      }
     } catch (error) {
       global.alert(error.message);
-      // Swal.fire({
-      //   icon: 'error',
-      //   title: 'Oops...',
-      //   text: error.message,
-      //   confirmButtonColor: '#dd6b55',
-      // });
+      setResults([]);
     }
   };
 

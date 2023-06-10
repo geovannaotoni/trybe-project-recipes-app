@@ -24,21 +24,18 @@ function Recipes() {
       // CONSUMIR A API DE ACORDO COM O PATHNAME
       const getData = async () => {
         const data = await fetchAPI(API_URL[path].name);
-        // console.log(data);
-        setResults(data[path]);
+        // console.log('recipes', data);
+        if (data.length > API_URL.maxResults) {
+          setResults(data.slice(0, API_URL.maxResults));
+        } else {
+          setResults(data);
+        }
       };
       getData();
     } catch (error) {
       showError(error.message);
     }
-  }, [pathname]);
-
-  useEffect(() => {
-    // Limitar o número de elementos renderizados
-    if (results && results.length > API_URL.maxResults) {
-      setResults(results.slice(0, API_URL.maxResults));
-    }
-  }, [results]);
+  }, [path, setResults]);
 
   return (
     <div>

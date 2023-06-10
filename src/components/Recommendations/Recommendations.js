@@ -21,9 +21,10 @@ function Recommendations() {
 
       try {
         const data = await fetchAPI(endpoint);
-
+        console.log('RECOMMENDATIONS', data.drinks, isMealPage);
         // Define as recomendações com base nos dados retornados
-        const recommendedRecipes = isMealPage ? data.drinks : data.meals;
+        // const recommendedRecipes = isMealPage ? data.drinks : data.meals;
+        const recommendedRecipes = data.drinks || data.meals;
         setRecommendations(recommendedRecipes);
       } catch (error) {
         console.error(error);

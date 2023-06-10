@@ -22,31 +22,29 @@ export default function FoodCategories() {
   useEffect(() => {
     const getData = async () => {
       const data = await fetchAPI(API_URL[path].categories);
-      const newCategories = data[path].length > MAX_CATEGORIES
-        ? data[path].slice(0, MAX_CATEGORIES) : data[path];
+      const newCategories = data.length > MAX_CATEGORIES
+        ? data.slice(0, MAX_CATEGORIES) : data;
       setCategories(newCategories);
     };
 
     getData();
-  }, [pathname]);
+  }, [path]);
 
   // Executar o filtro
   const handleClick = async ({ target }) => {
     try {
       setResults(null);
+      let data;
       if (target.innerText === 'All' || activeCategory === target.innerText) {
-        const data = await fetchAPI(API_URL[API_URL.toParam(pathname)].name);
-        setResults(data[path]);
+        data = await fetchAPI(API_URL[API_URL.toParam(pathname)].name);
         setActiveCategory('');
       } else {
-        // console.log('ANTES', API_URL[path].filter + target.innerText);
         const URL = API_URL[path].filter + target.innerText;
-        // console.log(URL);
-        const data = await fetchAPI(URL);
-        // console.log('DEPOIS', data[path]);
-        setResults(data[path]);
+        data = await fetchAPI(URL);
         setActiveCategory(target.innerText);
       }
+      data = data.length > API_URL.maxResults ? data.slice(0, API_URL.maxResults) : data;
+      setResults(data);
     } catch (error) {
       showError(error.message);
     }

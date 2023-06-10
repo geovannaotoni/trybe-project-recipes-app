@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { fetchAPI } from '../../services/fetchAPI';
-import Recommendations from '../../components/Recommendations/Recommendations';
-import RecipeButtons from '../../components/RecipeButtons/RecipeButtons';
-import './RecipeDetails.css';
 import FavAndShareButtons from '../../components/FavAndShareButtons/FavAndShareButtons';
-import { setOnStorage, getFromStorage } from '../../services/localStorage';
+import RecipeButtons from '../../components/RecipeButtons/RecipeButtons';
+import Recommendations from '../../components/Recommendations/Recommendations';
+import { fetchAPI } from '../../services/fetchAPI';
+import { getFromStorage, setOnStorage } from '../../services/localStorage';
+import './RecipeDetails.css';
 
 function RecipeDetails() {
   const history = useHistory();
@@ -30,6 +30,7 @@ function RecipeDetails() {
     const returnRote = async (tipo, ide) => {
       if (tipo === 'meals') {
         const meals = await fetchAPI(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${ide}`);
+        console.log('MEALS DETAILS', meals !== undefined);
         setElement(await meals.meals[0]); // estou setando o state element um objeto com o retono da requisição a API com as informações do meals obs.: {meals: [{}]}
         setPageTypeMeals(true); // afirmando que a page é do tipo meals
       } else if (tipo === 'drinks') {
