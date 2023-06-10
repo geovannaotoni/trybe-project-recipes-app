@@ -46,8 +46,10 @@ function Recipes() {
         && results.map((result, index) => (
           <FoodCard
             key={ index }
-            index={ index }
             result={ result }
+            testCard={ `${index}-recipe-card` }
+            testImg={ `${index}-card-img` }
+            testTitle={ `${index}-card-name` }
           />))
       }
       <Footer />

@@ -34,15 +34,15 @@ export default function SearchBar() {
         throw new Error('Your search must have only 1 (one) character');
       }
       const apiData = await fetchAPI(URL);
+
       // console.log('apiData', apiData);
       if (!apiData) {
         throw new Error('Sorry, we haven\'t found any recipes for these filters.');
       }
       if (apiData.length === 1) {
-        const [result] = results;
-        const id = result.idMeal || result.idDrink; // para obter o id que está contido na chave idMeals ou idDrink
+        const id = apiData[0].idMeal || apiData[0].idDrink; // para obter o id que está contido na chave idMeals ou idDrink
         history.push(`${pathname}/${id}`); // redireciona para a rota com o id
-      } else if (apiData.length > API_URL.maxResults) {
+      } if (apiData.length > API_URL.maxResults) {
         setResults(apiData.slice(0, API_URL.maxResults));
       } else {
         setResults(apiData ?? []);

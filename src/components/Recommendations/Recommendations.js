@@ -2,58 +2,40 @@ import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import { fetchAPI } from '../../services/fetchAPI';
+import { API_URL } from '../../services/helpers';
+import FoodCard from '../FoodCard/FoodCard';
 import './Recommendation.css';
 
 function Recommendations() {
   const history = useHistory();
+  const { pathname } = history.location;
+  const type = pathname.includes('meals') ? 'drinks' : 'meals';
   const [recommendations, setRecommendations] = useState([]);
   const maxRecommendations = 6;
 
   useEffect(() => {
     const fetchRecommendations = async () => {
-      const currentPath = history.location.pathname;
-      const isMealPage = currentPath.includes('/meals');
-
-      // Define o endpoint de acordo com o tipo oposto ao da página atual
-      const endpoint = isMealPage
-        ? 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s='
-        : 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
-
-      try {
-        const data = await fetchAPI(endpoint);
-        console.log('RECOMMENDATIONS', data.drinks, isMealPage);
-        // Define as recomendações com base nos dados retornados
-        // const recommendedRecipes = isMealPage ? data.drinks : data.meals;
-        const recommendedRecipes = data.drinks || data.meals;
+      const data = await fetchAPI(API_URL[type].name);
+      if (data.length > maxRecommendations) {
+        setRecommendations(data.slice(0, maxRecommendations));
+      } else {
         setRecommendations(recommendedRecipes);
-      } catch (error) {
-        console.error(error);
       }
     };
 
     fetchRecommendations();
-  }, [history.location.pathname]);
-
-  const reducerRecommendations = recommendations.slice(0, maxRecommendations);
+  }, [type]);
 
   return (
     <div className="carousel-container">
       {
-        reducerRecommendations.map((recipe, index) => (
-          <div
-            key={ recipe.idMeal || recipe.idDrink }
-            data-testid={ `${index}-recommendation-card` }
-            className="carousel-slide-item"
-          >
-            <p data-testid={ `${index}-recommendation-title` }>
-              {recipe.strMeal || recipe.strDrink}
-            </p>
-            <img
-              src={ recipe.strDrinkThumb || recipe.strMealThumb }
-              alt={ recipe.strMeal || recipe.strDrink }
-            />
-          </div>
-        ))
+        recommendations.map((rec, index) => (<FoodCard
+          key={ index }
+          result={ rec }
+          index={ index }
+          testCard={ `${index}-recommendation-card` }
+          testTitle={ `${index}-recommendation-title` }
+        />))
       }
     </div>
   );

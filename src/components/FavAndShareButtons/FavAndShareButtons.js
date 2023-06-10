@@ -1,52 +1,33 @@
-import React, { useState, useEffect } from 'react';
 import clipboardCopy from 'clipboard-copy';
+import PropTypes from 'prop-types';
+import React, { useEffect, useState } from 'react';
 
 import { useHistory } from 'react-router-dom';
-import './FavAndShareButtons.css';
+import fullHeart from '../../images/blackHeartIcon.svg';
 import shareIMG from '../../images/shareIcon.svg';
 import emptyHeart from '../../images/whiteHeartIcon.svg';
-import fullHeart from '../../images/blackHeartIcon.svg';
-import { setOnStorage, getFromStorage } from '../../services/localStorage';
-import { fetchAPI } from '../../services/fetchAPI';
+import { getFromStorage, setOnStorage } from '../../services/localStorage';
+import './FavAndShareButtons.css';
 
-function FavAndShareButtons() {
+function FavAndShareButtons(props) {
   const history = useHistory();
   const currentPath = history.location.pathname;
   const parts = currentPath.split('/');
   const [, type, id] = parts;
   const [isFavorite, setIsFavorite] = useState(false); // state que verifica se a receita foi favoritada ou não
   const [linkCopied, setLinkCopied] = useState(false); // state que verifica se o link foi copiado ou não
-  const [element, setElement] = useState({}); // state que salva uma copia nova da api da receita
 
-  useEffect(() => { // requisição a api para pegar as informações da receita (não consegui passar por props)
-    const returnRote = async () => {
-      if (type === 'meals') {
-        const meals = await fetchAPI(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
-        setElement(meals.meals); // estou setando o state element um objeto com o retono da requisição a API com as informações do meals obs.: {meals: [{}]}
-      } else if (type === 'drinks') {
-        const drinks = await fetchAPI(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
-        setElement(drinks.drinks); // estou setando o state element um objeto com o retono da requisição a API com as informações do drink obs.: {drinks: [{}]}
-      }
-    };
-    returnRote(); // Chamando a função para fazer a requisição da API com os parametros: Type: meals ou drinks e o id do produto
-  }, [id, type]); // usando type e id como parametro
+  const { food } = props;
 
   useEffect(() => { // Recupera o LS se tiver, verifica se tem a receita favoritada nele e pinta o coração ou cria um novo
-    const favoriteRecipes = getFromStorage('favoriteRecipes');
-
-    if (favoriteRecipes !== null) {
-      const isRecipeFavorite = favoriteRecipes.some((recipe) => recipe.id === id);
-      if (isRecipeFavorite === true) {
-        setIsFavorite(true);
-      }
-    } else {
-      setOnStorage('favoriteRecipes', []);
-    }
+    const favoriteRecipes = getFromStorage('favoriteRecipes') || [];
+    const isRecipeFavorite = favoriteRecipes.some((recipe) => recipe.id === id);
+    setIsFavorite(isRecipeFavorite);
   }, [id]);
 
   const handleFavorite = () => { // Função para salvar a receita no LS
     const { idMeal, idDrink, strArea, strCategory, strAlcoholic,
-      strDrinkThumb, strMealThumb, strMeal, strDrink } = element[0];
+      strDrinkThumb, strMealThumb, strMeal, strDrink } = food;
     const typeSingular = type === 'meals' ? 'meal' : 'drink';
     const favoriteRecipe = {
       id: idMeal || idDrink,
@@ -57,22 +38,17 @@ function FavAndShareButtons() {
       name: strMeal || strDrink,
       image: strDrinkThumb || strMealThumb,
     };
-    const favoriteRecipes = getFromStorage('favoriteRecipes'); // Pego do LS
-    if (favoriteRecipes !== null) {
-      console.log('Dentro do primeiro IF', isFavorite);
-      const haveRecipe = favoriteRecipes.some((recipe) => recipe.id === id);
-      if (haveRecipe === true) {
-        console.log('Dentro do segundo IF', isFavorite);
-        const newLS = favoriteRecipes.filter((recipe) => recipe.id !== id);
-        setIsFavorite(false); // Pintar o coração
-        setOnStorage('favoriteRecipes', newLS); // Salvo no LS
-      } else {
-        console.log('Dentro do else', isFavorite);
-        setIsFavorite(true); // Pintar o coração
-        const newLS = [...favoriteRecipes, favoriteRecipe];
-        setOnStorage('favoriteRecipes', newLS); // Salvo no LS
-      }
+    const favoriteRecipes = getFromStorage('favoriteRecipes') || []; // Pego do LS
+    const haveRecipe = favoriteRecipes.some((recipe) => recipe.id === id);
+    let newLS;
+    if (haveRecipe) {
+      newLS = favoriteRecipes.filter((recipe) => recipe.id !== id);
+      setIsFavorite(false); // Pintar o coração
+    } else {
+      setIsFavorite(true); // Pintar o coração
+      newLS = [...favoriteRecipes, favoriteRecipe];
     }
+    setOnStorage('favoriteRecipes', newLS); // Salvo no LS
   };
 
   const resetLinkCopied = () => { // Função para resetar o state de link copiado
@@ -89,11 +65,9 @@ function FavAndShareButtons() {
   };
 
   return (
-    <div className="mainFavAndShareButtons">
+    <div className="FavAndShareButtons">
       <button
         onClick={ handleFavorite }
-        value={ id }
-        name={ type }
       >
         <img
           src={ isFavorite ? fullHeart : emptyHeart }
@@ -108,5 +82,19 @@ function FavAndShareButtons() {
     </div>
   );
 }
+
+FavAndShareButtons.propTypes = {
+  food: PropTypes.shape({
+    idDrink: PropTypes.number,
+    idMeal: PropTypes.number,
+    strAlcoholic: PropTypes.string,
+    strArea: PropTypes.string,
+    strCategory: PropTypes.string,
+    strDrink: PropTypes.string,
+    strDrinkThumb: PropTypes.string,
+    strMeal: PropTypes.string,
+    strMealThumb: PropTypes.string,
+  }),
+}.isRequired;
 
 export default FavAndShareButtons;

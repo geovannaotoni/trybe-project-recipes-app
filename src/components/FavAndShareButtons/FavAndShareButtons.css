@@ -1,6 +1,9 @@
-.mainFavAndShareButtons {
+.FavAndShareButtons {
   background-color: transparent;
   border: none;
+  position: absolute;
+  right: 10px;
+  top: 10px;
 }
 
 .fav {
