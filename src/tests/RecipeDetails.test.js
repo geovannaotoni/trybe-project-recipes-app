@@ -1,15 +1,18 @@
-import { act, screen, waitFor } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
 import React from 'react';
 import oneMeal from '../../cypress/mocks/oneMeal';
 import App from '../App';
 import RecipeDetails from '../pages/RecipeDetails/RecipeDetails';
 import renderWithRouterAndContext from './utils/renderWithRouterAndContext';
-import dataDrinks from './mocks/Drinks';
+import { dataDrinks, drinksDataOnly } from './mocks/Drinks';
 
 const URL_MEAL = '/meals/52771';
 
 describe('Testes para a página de RecipeDetails', () => {
-  test.only('Se está renderizando corretamente a página de meals', async () => {
+  beforeEach(() => {
+    jest.restoreAllMocks();
+  });
+  test('Se está renderizando corretamente a página de meals', async () => {
     // mocka os fetchs para não consumir a API --> primeiro o componente Recommendations renderiza e após retorna para o Details
     // então o mock é dos drinks e depois da refeição única
     //
@@ -44,11 +47,15 @@ describe('Testes para a página de RecipeDetails', () => {
     });
   });
 
-  test('Se está renderizando corretamente a página de drinks', async () => {
-    const { history } = renderWithRouterAndContext(<App />);
-    act(() => {
-      history.push('/drinks/14053');
-    });
+  test.skip('Se está renderizando corretamente a página de drinks', async () => {
+    const { history } = renderWithRouterAndContext(<App />, '/drinks/14053');
+    global.fetch = jest.fn()
+      .mockResolvedValueOnce({
+        json: jest.fn().mockResolvedValueOnce(drinksDataOnly),
+      })
+      .mockResolvedValueOnce({
+        json: jest.fn().mockResolvedValueOnce(dataDrinks),
+      });
     const title = 'Mother\'s Milk';
     expect(history.location.pathname).toBe('/drinks/14053');
     const videoElement = screen.queryByTestId('video');
@@ -67,11 +74,11 @@ describe('Testes para a página de RecipeDetails', () => {
     });
     await waitFor(() => {
       const ingredient = screen.getByTestId('0-ingredient-name-and-measure');
-      expect(ingredient.textContent).toBe('Goldschlager - 1 oz');
+      expect(ingredient).toHaveTextContent('Goldschlager - 1 oz');
     });
   });
 
-  test('Se está renderizando corretamente a página de meals usando mock', async () => {
+  test.skip('Se está renderizando corretamente a página de meals usando mock', async () => {
     const { history } = renderWithRouterAndContext(
       <RecipeDetails id="52855" type="meals" />,
       '/meals/52855',
@@ -90,7 +97,7 @@ describe('Testes para a página de RecipeDetails', () => {
     });
   });
 
-  test('Teste as recomendações', () => {
+  test.skip('Teste as recomendações', () => {
     renderWithRouterAndContext(<App />, '/meals/52771');
     waitFor(async () => {
       const recommendationCards = await screen.findAllByTestId(/recommendation-card/i);
