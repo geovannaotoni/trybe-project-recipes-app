@@ -120,7 +120,7 @@ export default function RecipeContent(props) {
       <p
         data-testid="recipe-category"
       >
-        { `${food.strCategory} - ${food.strAlcoholic}`}
+        { `${type === 'meals' ? food.strCategory : food.strAlcoholic}`}
 
       </p>
       {renderIngredients()}

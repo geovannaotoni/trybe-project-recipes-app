@@ -35,10 +35,10 @@ function DoneRecipes() {
     if (!recipe.tags || recipe.tags.length < 1) {
       return;
     }
-    console.log(recipe.tags);
+    // console.log(recipe.tags);
     let tagsToRender;
     if (recipe.tags.length > 2) {
-      recipe.tags.slice(0, 2);
+      tagsToRender = recipe.tags.slice(0, 2);
     } else {
       tagsToRender = recipe.tags;
     }

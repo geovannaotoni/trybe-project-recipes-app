@@ -3,7 +3,7 @@ import { screen, act, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import App from '../App';
 import renderWithRouterAndContext from './utils/renderWithRouterAndContext';
-import { mealsCategories, mealsData } from './mocks/Meals';
+import { mealsCategories, mealsData, mealsDataOnly } from './mocks/Meals';
 
 describe('Teste para o componente FoodCard', () => {
   it('Verifica se, ao clicar no card, ele redireciona para a página de detalhes', async () => {
@@ -15,6 +15,9 @@ describe('Teste para o componente FoodCard', () => {
       })
       .mockResolvedValueOnce({
         json: jest.fn().mockResolvedValueOnce(mealsData),
+      })
+      .mockResolvedValueOnce({
+        json: jest.fn().mockResolvedValueOnce(mealsDataOnly),
       });
 
     act(() => {

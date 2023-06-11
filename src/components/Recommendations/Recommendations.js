@@ -19,7 +19,7 @@ function Recommendations() {
       if (data.length > maxRecommendations) {
         setRecommendations(data.slice(0, maxRecommendations));
       } else {
-        setRecommendations(recommendedRecipes);
+        setRecommendations(data);
       }
     };
 

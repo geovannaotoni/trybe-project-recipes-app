@@ -4,6 +4,7 @@ import oneMeal from '../../cypress/mocks/oneMeal';
 import App from '../App';
 import RecipeDetails from '../pages/RecipeDetails/RecipeDetails';
 import renderWithRouterAndContext from './utils/renderWithRouterAndContext';
+import dataDrinks from './mocks/Drinks';
 
 const URL_MEAL = '/meals/52771';
 
@@ -12,12 +13,14 @@ describe('Testes para a página de RecipeDetails', () => {
     // mocka os fetchs para não consumir a API --> primeiro o componente Recommendations renderiza e após retorna para o Details
     // então o mock é dos drinks e depois da refeição única
     //
-    global.fetch = jest.fn(() => Promise.resolve({
-      json: () => Promise.resolve(oneMeal),
-    }));
-    act(() => {
-      renderWithRouterAndContext(<App />, URL_MEAL);
-    });
+    renderWithRouterAndContext(<App />, URL_MEAL);
+    global.fetch = jest.fn()
+      .mockResolvedValueOnce({
+        json: jest.fn().mockResolvedValueOnce(oneMeal),
+      })
+      .mockResolvedValueOnce({
+        json: jest.fn().mockResolvedValueOnce(dataDrinks),
+      });
 
     await waitFor(() => {
       const recipeTitle = screen.getByTestId('recipe-title');
