@@ -1,62 +1,71 @@
+import React from 'react';
+import { screen, waitFor } from '@testing-library/react';
+import renderWithRouterAndContext from './utils/renderWithRouterAndContext';
+import App from '../App';
+import { mealsDataOnly } from './mocks/Meals';
+import { dataDrinks } from './mocks/Drinks';
 // import RecipeButtons from '../components/RecipeButtons/RecipeButtons';
 
 describe('Testes para RecipeButtons', () => {
-  // const line = '/meals/52771';
-  // const testId = 'start-recipe-btn';
-  // test('Renderiza corretamente o botão "Start Recipe" quando o status da receita é vazio', async () => {
-  //   const history = createMemoryHistory();
-  //   history.push(line);
+  const url = '/meals/52855';
+  const testId = 'start-recipe-btn';
+  beforeEach(() => {
+    jest.restoreAllMocks();
+  });
+  it('Renderiza corretamente o botão "Start Recipe" quando o status da receita é vazio', async () => {
+    jest.spyOn(global, 'fetch');
+    global.fetch = jest.fn()
+      .mockResolvedValueOnce({
+        json: jest.fn().mockResolvedValueOnce(mealsDataOnly),
+      })
+      .mockResolvedValueOnce({
+        json: jest.fn().mockResolvedValueOnce(dataDrinks),
+      });
+    renderWithRouterAndContext(<App />, url);
 
-  //   render(
-  //     <Router history={ history }>
-  //       <RecipeButtons />
-  //     </Router>,
-  //   );
+    await waitFor(() => {
+      const startButton = screen.getByTestId(testId);
+      expect(startButton).toHaveTextContent('Start Recipe');
+    });
+  });
 
-  //   await act(async () => {
-  //     const startButton = await screen.findByTestId(testId);
-  //     expect(startButton).toBeInTheDocument();
-  //     expect(startButton.textContent).toBe('Start Recipe');
-  //   });
-  // });
+  it('Renderiza corretamente o botão "Continue Recipe" quando o status da receita é "started"', async () => {
+    localStorage.setItem('inProgressRecipes', JSON.stringify({ drinks: {}, meals: { 52855: ['Banana'] } }));
+    jest.spyOn(global, 'fetch');
+    global.fetch = jest.fn()
+      .mockResolvedValueOnce({
+        json: jest.fn().mockResolvedValueOnce(mealsDataOnly),
+      })
+      .mockResolvedValueOnce({
+        json: jest.fn().mockResolvedValueOnce(dataDrinks),
+      });
+    renderWithRouterAndContext(<App />, url);
 
-  // test('Renderiza corretamente o botão "Continue Recipe" quando o status da receita é "started"', async () => {
-  //   const history = createMemoryHistory();
-  //   history.push(line);
+    await waitFor(() => {
+      const continueButton = screen.getByTestId(testId);
+      expect(continueButton).toHaveTextContent('Continue Recipe');
+    });
+  });
 
-  //   localStorage.setItem('inProgressRecipes', JSON.stringify({ 52771: {} }));
+  test('Não renderiza nenhum botão quando o status da receita é "finished"', async () => {
+    localStorage.setItem(
+      'doneRecipes',
+      JSON.stringify({ drinks: {}, meals: { 52855: ['Banana', 'Eggs', 'Baking Powder', 'Vanilla Extract', 'Oil', 'Pecan Nuts', 'Raspberries'] } }),
+    );
+    jest.spyOn(global, 'fetch');
+    global.fetch = jest.fn()
+      .mockResolvedValueOnce({
+        json: jest.fn().mockResolvedValueOnce(mealsDataOnly),
+      })
+      .mockResolvedValueOnce({
+        json: jest.fn().mockResolvedValueOnce(dataDrinks),
+      });
+    renderWithRouterAndContext(<App />, url);
 
-  //   render(
-  //     <Router history={ history }>
-  //       <RecipeButtons />
-  //     </Router>,
-  //   );
-
-  //   await act(async () => {
-  //     const continueButton = await screen.findByTestId(testId);
-  //     expect(continueButton).toBeInTheDocument();
-  //     expect(continueButton.textContent).toBe('Continue Recipe');
-  //   });
-  // });
-
-  // test('Não renderiza nenhum botão quando o status da receita é "finished"', async () => {
-  //   const history = createMemoryHistory();
-  //   history.push(line);
-
-  //   localStorage.setItem(
-  //     'doneRecipes',
-  //     JSON.stringify([{ id: '52771', title: 'Spicy Arrabiata Penne' }]),
-  //   );
-
-  //   render(
-  //     <Router history={ history }>
-  //       <RecipeButtons />
-  //     </Router>,
-  //   );
-
-  //   await act(async () => {
-  //     const buttons = screen.queryAllByTestId(testId);
-  //     expect(buttons.length).toBe(0);
-  //   });
-  // });
+    await waitFor(() => {
+      const buttons = screen.queryAllByTestId(testId);
+      expect(buttons.length).toBe(0);
+    });
+    global.fetch.mockRestore();
+  });
 });

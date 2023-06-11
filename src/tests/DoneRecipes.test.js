@@ -37,6 +37,7 @@ describe('Testes para o componente DoneRecipes', () => {
 
     renderWithRouterAndContext(<App />, '/done-recipes');
   });
+  afterEach(() => jest.restoreAllMocks());
 
   it('Verifica os botôes de filtro', async () => {
     const btnAll = screen.getByTestId('filter-by-all-btn');
@@ -136,6 +137,7 @@ describe('Teste da função clipboard-copy', () => {
 
     renderWithRouterAndContext(<App />, '/done-recipes');
   });
+  afterEach(() => jest.restoreAllMocks());
 
   it('Testa se o botão de compartilhar chama a função clipboard-copy', async () => {
     const shareBtn = screen.getByTestId('0-horizontal-share-btn');

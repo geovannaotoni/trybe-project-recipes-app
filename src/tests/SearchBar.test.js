@@ -1,5 +1,5 @@
 import React from 'react';
-import { screen, act, waitFor } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import App from '../App';
 import renderWithRouterAndContext from './utils/renderWithRouterAndContext';
@@ -10,12 +10,20 @@ describe('Testes para o componente SearchBar', () => {
   const searchInput = 'search-input';
   const nameSearchRadio = 'name-search-radio';
   const execSearchBtn = 'exec-search-btn';
+  beforeEach(() => {
+    jest.restoreAllMocks();
+  });
 
   it('Verifica se ao selecionar outro radio, o input é limpo', () => {
-    const { history } = renderWithRouterAndContext(<App />);
-    act(() => {
-      history.push('/meals');
-    });
+    jest.spyOn(global, 'fetch');
+    global.fetch = jest.fn()
+      .mockResolvedValueOnce({
+        json: jest.fn().mockResolvedValueOnce(mealsCategories),
+      })
+      .mockResolvedValueOnce({
+        json: jest.fn().mockResolvedValueOnce(mealsData),
+      });
+    renderWithRouterAndContext(<App />, '/meals');
     const btnSearchIcon = screen.getByTestId(searchTopBtn);
     userEvent.click(btnSearchIcon);
 
@@ -29,10 +37,7 @@ describe('Testes para o componente SearchBar', () => {
   it('Verifica se, ao selecionar a pesquisa por "First Letter" e digitar mais de um caractere, a aplicação exibe um alerta', () => {
     const alertSpy = jest.spyOn(window, 'alert');
 
-    const { history } = renderWithRouterAndContext(<App />);
-    act(() => {
-      history.push('/meals');
-    });
+    renderWithRouterAndContext(<App />, '/meals');
     const btnSearchIcon = screen.getByTestId(searchTopBtn);
     userEvent.click(btnSearchIcon);
 
@@ -65,10 +70,7 @@ describe('Testes para o componente SearchBar', () => {
         }),
       });
 
-    const { history } = renderWithRouterAndContext(<App />);
-    act(() => {
-      history.push('/meals');
-    });
+    renderWithRouterAndContext(<App />, '/meals');
     const btnSearchIcon = screen.getByTestId(searchTopBtn);
     userEvent.click(btnSearchIcon);
 
@@ -96,10 +98,7 @@ describe('Testes para o componente SearchBar', () => {
       json: jest.fn().mockResolvedValue(mealsDataOnly),
     });
 
-    const { history } = renderWithRouterAndContext(<App />);
-    act(() => {
-      history.push('/meals');
-    });
+    const { history } = renderWithRouterAndContext(<App />, '/meals');
     const btnSearchIcon = screen.getByTestId(searchTopBtn);
     userEvent.click(btnSearchIcon);
 
