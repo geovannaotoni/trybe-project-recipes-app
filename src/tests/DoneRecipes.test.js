@@ -27,6 +27,9 @@ const doneRecipes = [{
   doneDate: '02.02.2022',
   tags: [],
 }];
+const testIdBtnDrink = 'filter-by-drink-btn';
+const testIdBtnMeal = 'filter-by-meal-btn';
+const nomeDrink = doneRecipes[1].name;
 
 describe('Testes para o componente DoneRecipes', () => {
   beforeEach(() => {
@@ -41,8 +44,8 @@ describe('Testes para o componente DoneRecipes', () => {
 
   it('Verifica os botôes de filtro', async () => {
     const btnAll = screen.getByTestId('filter-by-all-btn');
-    const btnMeals = screen.getByTestId('filter-by-meal-btn');
-    const btnDrink = screen.getByTestId('filter-by-drink-btn');
+    const btnMeals = screen.getByTestId(testIdBtnMeal);
+    const btnDrink = screen.getByTestId(testIdBtnDrink);
     expect(btnAll).toBeInTheDocument();
     expect(btnMeals).toBeInTheDocument();
     expect(btnDrink).toBeInTheDocument();
@@ -75,7 +78,7 @@ describe('Testes para o componente DoneRecipes', () => {
   });
 
   it('verifica se filtra corretamente as comidas ao clicar no botão Meals', async () => {
-    const btnMeals = screen.getByTestId('filter-by-meal-btn');
+    const btnMeals = screen.getByTestId(testIdBtnMeal);
     act(() => {
       userEvent.click(btnMeals);
     });
@@ -100,7 +103,7 @@ describe('Testes para o componente DoneRecipes', () => {
 
   it('verifica se filtra corretamente as bebidas ao clicar no botão Drinks e retira o filtro ao clicar em All', async () => {
     const firstElementTestId = '0-horizontal-name';
-    const btnDrinks = screen.getByTestId('filter-by-drink-btn');
+    const btnDrinks = screen.getByTestId(testIdBtnDrink);
 
     expect(await screen.findByTestId(firstElementTestId))
       .toHaveTextContent('nome-meal');
@@ -111,12 +114,35 @@ describe('Testes para o componente DoneRecipes', () => {
 
     waitFor(async () => {
       expect(await screen.findByTestId(firstElementTestId))
-        .toHaveTextContent('nome-drink');
+        .toHaveTextContent(nomeDrink);
     });
 
     const btnAll = screen.getByTestId('filter-by-all-btn');
     act(() => {
       userEvent.click(btnAll);
+    });
+    expect(await screen.findByTestId(firstElementTestId))
+      .toHaveTextContent('nome-meal');
+  });
+
+  it('verifica se filtra corretamente as bebidas ao clicar no botão Drinks e retira o filtro ao clicar no mesmo botão', async () => {
+    const firstElementTestId = '0-horizontal-name';
+    const btnDrinks = screen.getByTestId(testIdBtnDrink);
+
+    expect(await screen.findByTestId(firstElementTestId))
+      .toHaveTextContent('nome-meal');
+
+    act(() => {
+      userEvent.click(btnDrinks);
+    });
+
+    waitFor(async () => {
+      expect(await screen.findByTestId(firstElementTestId))
+        .toHaveTextContent(nomeDrink);
+    });
+
+    act(() => {
+      userEvent.click(btnDrinks);
     });
     expect(await screen.findByTestId(firstElementTestId))
       .toHaveTextContent('nome-meal');
