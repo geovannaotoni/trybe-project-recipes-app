@@ -60,9 +60,13 @@ function useRecipeCards() {
           </p>
         )
       }
-      <p data-testid={ `${index}-horizontal-done-date` }>
-        {recipe.doneDate }
-      </p>
+      {
+        recipe.doneDate && (
+          <p data-testid={ `${index}-horizontal-done-date` }>
+            {recipe.doneDate }
+          </p>
+        )
+      }
       <p>
         {renderTags(recipe, index)}
       </p>
@@ -73,13 +77,12 @@ function useRecipeCards() {
           data-testid={ `${index}-horizontal-share-btn` }
         />
       </button>
-
-      { shareBtn && <p>Link copied!</p>}
     </>
   );
 
   return {
     renderRecipeCard,
+    shareBtn,
   };
 }
 

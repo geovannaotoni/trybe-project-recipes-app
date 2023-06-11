@@ -7,7 +7,7 @@ import useRecipeCards from '../../hooks/useRecipeCards/useRecipeCards';
 function DoneRecipes() {
   const [doneRecipes, setDoneRecipes] = useState([]);
   const { filterType, renderButtons } = useFilterButtons();
-  const { renderRecipeCard } = useRecipeCards();
+  const { shareBtn, renderRecipeCard } = useRecipeCards();
 
   useEffect(() => {
     const doneRecipesFromStorage = getFromStorage('doneRecipes');
@@ -30,6 +30,7 @@ function DoneRecipes() {
               </article>
             ))
         }
+        { shareBtn && <p>Link copied!</p>}
       </section>
     </div>
   );
