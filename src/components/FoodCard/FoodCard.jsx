@@ -1,45 +1,37 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { API_URL } from '../../services/helpers';
 
 export default function FoodCard(props) {
   // History
   const history = useHistory();
-  const { location: { pathname } } = history;
-  const path = API_URL.toParam(pathname);
-  // const pathCap = API_URL.toCapitalize(pathname);
-  const foodType = API_URL.toSingleParam(pathname);
-  // console.log(props); --> results e index
-  const { index, result } = props;
-
+  const { result, testCard, testTitle, testImg } = props;
+  const foodType = result.idMeal ? 'meals' : 'drinks';
   const redirectToDetail = () => {
-    const id = result[`id${foodType}`];
-    const newPath = `/${path}/${id}`;
-    history.push(newPath);
+    history.push(`/${foodType}/${result.idMeal || result.idDrink}`);
   };
 
   // Retorno visual
   return (
     <button
       className="FoodCard"
-      data-testid={ `${index}-recipe-card` }
+      data-testid={ testCard }
       style={ {
         border: '1px solid black',
       } }
       onClick={ redirectToDetail }
     >
       <img
-        style={ { width: '100px' } }
-        data-testid={ `${index}-card-img` }
-        src={ result[`str${foodType}Thumb`] }
-        alt={ result[`str${foodType}`] }
+        style={ { maxWidth: '40vw' } }
+        data-testid={ testImg }
+        src={ result.strMealThumb || result.strDrinkThumb }
+        alt={ result.strMeal || result.strDrink }
       />
-      <h4
-        data-testid={ `${index}-card-name` }
+      <p
+        data-testid={ testTitle }
       >
-        { result[`str${foodType}`] }
-      </h4>
+        { result.strMeal || result.strDrink }
+      </p>
     </button>
   );
 }

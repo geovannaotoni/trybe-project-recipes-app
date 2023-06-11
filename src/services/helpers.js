@@ -7,6 +7,7 @@ export const API_URL = {
     firstLetter: 'https://www.themealdb.com/api/json/v1/1/search.php?f=',
     categories: 'https://www.themealdb.com/api/json/v1/1/list.php?c=list',
     filter: 'https://www.themealdb.com/api/json/v1/1/filter.php?c=',
+    single: 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=',
   },
   drinks: {
     ingredient: 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=',
@@ -14,6 +15,7 @@ export const API_URL = {
     firstLetter: 'https://www.thecocktaildb.com/api/json/v1/1/search.php?f=',
     categories: 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list',
     filter: 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=',
+    single: 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=',
   },
   // input: /drinks --> output: Drink (para ser usado em idDrink, strDrink, etc)
   toSingleParam: (pathname) => pathname[1].toUpperCase()

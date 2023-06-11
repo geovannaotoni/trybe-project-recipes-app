@@ -1,18 +1,24 @@
+import { act, screen, waitFor } from '@testing-library/react';
 import React from 'react';
-import { screen, act, waitFor } from '@testing-library/react';
+import oneMeal from '../../cypress/mocks/oneMeal';
 import App from '../App';
-import renderWithRouterAndContext from './utils/renderWithRouterAndContext';
 import RecipeDetails from '../pages/RecipeDetails/RecipeDetails';
+import renderWithRouterAndContext from './utils/renderWithRouterAndContext';
 
-jest.mock('./mocks/Meals');
+const URL_MEAL = '/meals/52771';
 
 describe('Testes para a página de RecipeDetails', () => {
-  test('Se está renderizando corretamente a página de meals', async () => {
-    const { history } = renderWithRouterAndContext(<App />);
+  test.only('Se está renderizando corretamente a página de meals', async () => {
+    // mocka os fetchs para não consumir a API --> primeiro o componente Recommendations renderiza e após retorna para o Details
+    // então o mock é dos drinks e depois da refeição única
+    //
+    global.fetch = jest.fn(() => Promise.resolve({
+      json: () => Promise.resolve(oneMeal),
+    }));
     act(() => {
-      history.push('/meals/52771');
+      renderWithRouterAndContext(<App />, URL_MEAL);
     });
-    expect(history.location.pathname).toBe('/meals/52771');
+
     await waitFor(() => {
       const recipeTitle = screen.getByTestId('recipe-title');
       expect(recipeTitle.textContent).toBe('Spicy Arrabiata Penne');
@@ -78,6 +84,18 @@ describe('Testes para a página de RecipeDetails', () => {
       expect(screen.getByText('Eggs')).toBeInTheDocument();
       expect(screen.getByText('Baking Powder')).toBeInTheDocument();
       expect(screen.getByText('Vanilla Extract')).toBeInTheDocument();
+    });
+  });
+
+  test('Teste as recomendações', () => {
+    renderWithRouterAndContext(<App />, '/meals/52771');
+    waitFor(async () => {
+      const recommendationCards = await screen.findAllByTestId(/recommendation-card/i);
+      expect(recommendationCards).toHaveLength(6);
+      const recommendationTitles = await screen.findAllByTestId(/recommendation-title/i);
+      expect(recommendationTitles).toHaveLength(6);
+      const recommendationImages = await screen.findAllByRole('img');
+      expect(recommendationImages).toHaveLength(6);
     });
   });
 });

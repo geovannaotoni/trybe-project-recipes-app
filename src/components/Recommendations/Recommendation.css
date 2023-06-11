@@ -1,9 +1,12 @@
 .carousel-container {
   display: flex;
-  height: 200px;
-  margin: 0 auto;
-  max-width: 90vw;
+  gap: 20px;
+
+  /* height: 200px; */
+  margin: 10px auto;
+  max-width: 95vw;
   overflow-x: scroll;
+  padding: 20px;
   white-space: nowrap;
   width: 100%;
 }
