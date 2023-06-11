@@ -4,6 +4,7 @@ import userEvent from '@testing-library/user-event';
 import App from '../App';
 import renderWithRouterAndContext from './utils/renderWithRouterAndContext';
 import { mealsCategories, mealsData, mealsDataOnly } from './mocks/Meals';
+import { drinksDataOnly } from './mocks/Drinks';
 
 describe('Testes para o componente SearchBar', () => {
   const searchTopBtn = 'search-top-btn';
@@ -36,7 +37,14 @@ describe('Testes para o componente SearchBar', () => {
   });
   it('Verifica se, ao selecionar a pesquisa por "First Letter" e digitar mais de um caractere, a aplicação exibe um alerta', () => {
     const alertSpy = jest.spyOn(window, 'alert');
-
+    jest.spyOn(global, 'fetch');
+    global.fetch = jest.fn()
+      .mockResolvedValueOnce({
+        json: jest.fn().mockResolvedValueOnce(mealsCategories),
+      })
+      .mockResolvedValueOnce({
+        json: jest.fn().mockResolvedValueOnce(mealsData),
+      });
     renderWithRouterAndContext(<App />, '/meals');
     const btnSearchIcon = screen.getByTestId(searchTopBtn);
     userEvent.click(btnSearchIcon);
@@ -118,5 +126,42 @@ describe('Testes para o componente SearchBar', () => {
     });
 
     global.fetch.mockRestore();
+  });
+
+  it('Verifica a renderização quando é a rota /drinks', async () => {
+    jest.spyOn(global, 'fetch');
+    global.fetch = jest.fn()
+      .mockResolvedValue({
+        json: jest.fn().mockResolvedValue(drinksDataOnly),
+      });
+    const { history } = renderWithRouterAndContext(<App />, '/drinks');
+    await waitFor(() => {
+      expect(screen.getByTestId('0-card-name')).toHaveTextContent('Mother\'s Milk');
+    });
+    const btnSearchIcon = screen.getByTestId(searchTopBtn);
+    userEvent.click(btnSearchIcon);
+    const btnSearchExec = screen.getByTestId(execSearchBtn);
+    userEvent.click(btnSearchExec);
+    await waitFor(() => {
+      expect(history.location.pathname).toBe('/drinks/14053');
+    });
+    global.fetch.mockRestore();
+  });
+
+  it('Verifica se, ao pesquisar um alimento, caso encontre mais de 12 resultados, são exibidos somente os 12 cards de comida', async () => {
+    global.fetch = jest.fn()
+      .mockResolvedValue({
+        json: jest.fn().mockResolvedValue(mealsData),
+      });
+    renderWithRouterAndContext(<App />, '/meals');
+    const btnSearchIcon = screen.getByTestId(searchTopBtn);
+    userEvent.click(btnSearchIcon);
+    const btnSearchExec = screen.getByTestId(execSearchBtn);
+    userEvent.click(btnSearchExec);
+
+    await waitFor(() => {
+      expect(screen.getByTestId('0-recipe-card')).toBeInTheDocument();
+      expect(screen.queryByTestId('13-recipe-card')).not.toBeInTheDocument();
+    });
   });
 });

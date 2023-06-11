@@ -1,5 +1,5 @@
 import React from 'react';
-import { screen, act, waitFor } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import App from '../App';
 import renderWithRouterAndContext from './utils/renderWithRouterAndContext';
@@ -7,8 +7,6 @@ import { mealsCategories, mealsData, mealsDataOnly } from './mocks/Meals';
 
 describe('Teste para o componente FoodCard', () => {
   it('Verifica se, ao clicar no card, ele redireciona para a página de detalhes', async () => {
-    const { history } = renderWithRouterAndContext(<App />);
-
     global.fetch = jest.fn()
       .mockResolvedValueOnce({
         json: jest.fn().mockResolvedValueOnce(mealsCategories),
@@ -19,16 +17,11 @@ describe('Teste para o componente FoodCard', () => {
       .mockResolvedValueOnce({
         json: jest.fn().mockResolvedValueOnce(mealsDataOnly),
       });
+    const { history } = renderWithRouterAndContext(<App />, '/meals');
 
-    act(() => {
-      history.push('/meals');
+    await waitFor(() => {
+      expect(screen.getByTestId('Beef-category-filter')).toBeInTheDocument();
     });
-    const beefCategoryFilter = screen.queryByTestId('Beef-category-filter');
-    if (!beefCategoryFilter) {
-      await waitFor(() => {
-        expect(screen.getByTestId('Beef-category-filter')).toBeInTheDocument();
-      });
-    }
     await waitFor(() => {
       expect(screen.getByTestId('0-recipe-card')).toBeInTheDocument();
       expect(screen.queryByTestId('13-recipe-card')).not.toBeInTheDocument();
