@@ -4,11 +4,12 @@ import { Link } from 'react-router-dom';
 import Header from '../../components/Header/Header';
 import shareIconImage from '../../images/shareIcon.svg';
 import { getFromStorage } from '../../services/localStorage';
+import useFilterButtons from '../../hooks/useFilterButtons/useFilterButtons';
 
 function DoneRecipes() {
   const [doneRecipes, setDoneRecipes] = useState([]);
   const [shareBtn, setShareBtn] = useState(false);
-  const [filterType, setFilterType] = useState('');
+  const { filterType, renderButtons } = useFilterButtons();
 
   useEffect(() => {
     const doneRecipesFromStorage = getFromStorage('doneRecipes');
@@ -21,14 +22,6 @@ function DoneRecipes() {
     const currentDomain = window.location.origin;
     clipboardCopy(`${currentDomain}/${recipe.type}s/${recipe.id}`);
     setShareBtn(true);
-  };
-
-  const handleFilter = (value) => {
-    if (filterType === value) {
-      setFilterType('');
-    } else {
-      setFilterType(value);
-    }
   };
 
   const renderTags = (recipe, index) => {
@@ -52,29 +45,7 @@ function DoneRecipes() {
   return (
     <div>
       <Header pageTitle="Done Recipes" />
-      <section>
-        <button
-          type="button"
-          data-testid="filter-by-all-btn"
-          onClick={ () => handleFilter('') }
-        >
-          All
-        </button>
-        <button
-          type="button"
-          data-testid="filter-by-meal-btn"
-          onClick={ () => handleFilter('meal') }
-        >
-          Meals
-        </button>
-        <button
-          type="button"
-          data-testid="filter-by-drink-btn"
-          onClick={ () => handleFilter('drink') }
-        >
-          Drinks
-        </button>
-      </section>
+      { renderButtons() }
       <section>
         {
           doneRecipes
