@@ -2,15 +2,13 @@ import { screen, waitFor } from '@testing-library/react';
 import React from 'react';
 import Swal from 'sweetalert2';
 import App from '../App';
-import renderWithRouterAndContext from './utils/renderWithRouterAndContext';
-import { mealsCategories } from './mocks/Meals';
 import { showError } from '../services/helpers';
+import { mealsCategories } from './mocks/Meals';
+import renderWithRouterAndContext from './utils/renderWithRouterAndContext';
 
 describe('Teste para a page Recipes', () => {
-  it.skip('Verifica o tratamento de erro', async () => {
+  it('Verifica o tratamento de erro', async () => {
     renderWithRouterAndContext(<App />, '/meals');
-
-    // console.log(history.location.pathname);
 
     const showErrorSpy = jest.spyOn(Swal, 'fire');
 
