@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom';
 import RecipesContext from '../../context/RecipesContext';
 import { fetchAPI } from '../../services/fetchAPI';
 import { API_URL } from '../../services/helpers';
+import './SearchBar.css';
 
 const FIRST_LETTER = 'firstLetter';
 const INGREDIENT = 'ingredient';
@@ -61,10 +62,11 @@ export default function SearchBar() {
         value={ searchInput }
         onChange={ ({ target }) => setSearchInput(target.value) }
         placeholder="Digite aqui"
+        className="SearchBarInput"
         // maxLength={ radioInput === 'First letter' ? 1 : '' }
       />
 
-      <div>
+      <div className="SearchBarRadioAndLabel">
         <input
           type="radio"
           name="searchInput"
@@ -98,7 +100,7 @@ export default function SearchBar() {
       </div>
       <button data-testid="exec-search-btn" onClick={ handleSearchClick }>Search</button>
 
-      <h4>{`${results ? results.length : 0} resultados`}</h4>
+      <h4 className="SearchBarResults">{`${results ? results.length : 0} resultados`}</h4>
 
     </div>
   );
