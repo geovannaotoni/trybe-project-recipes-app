@@ -12,7 +12,7 @@ import Recipes from './pages/Recipes/Recipes';
 
 function App() {
   return (
-    <div>
+    <div className="divMainApp">
       <Switch>
         <Route exact path="/" component={ Login } />
         <Route exact path="/meals/:id" component={ RecipeDetails } />

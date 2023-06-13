@@ -7,6 +7,7 @@ import Footer from '../../components/footer/Footer';
 import RecipesContext from '../../context/RecipesContext';
 import { fetchAPI } from '../../services/fetchAPI';
 import { API_URL, showError } from '../../services/helpers';
+import './Recipes.css';
 
 function Recipes() {
   // History
@@ -38,11 +39,12 @@ function Recipes() {
   }, [path, setResults]);
 
   return (
-    <div>
+    <div className="mainRecipes">
       <Header pageTitle={ API_URL.toCapitalize(pathname) } />
       <FoodCategories />
-      {
-        results
+      <div className="bodyRecipes">
+        {
+          results
         && results.map((result, index) => (
           <FoodCard
             key={ index }
@@ -51,7 +53,9 @@ function Recipes() {
             testImg={ `${index}-card-img` }
             testTitle={ `${index}-card-name` }
           />))
-      }
+        }
+
+      </div>
       <Footer />
     </div>
   );
