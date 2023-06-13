@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { setOnStorage } from '../../services/localStorage';
+import imageIcon from '../../images/logoSemFundo.svg';
+import './Login.css';
 
 function Login() {
   const history = useHistory();
@@ -38,31 +40,35 @@ function Login() {
   }, [login]);
 
   return (
-    <section>
-      <input
-        type="text"
-        name="email"
-        value={ login.email }
-        onChange={ handleChange }
-        placeholder="Email"
-        data-testid="email-input"
-      />
-      <input
-        type="password"
-        name="password"
-        value={ login.password }
-        onChange={ handleChange }
-        placeholder="Password"
-        data-testid="password-input"
-      />
-      <button
-        type="button"
-        onClick={ handleClick }
-        disabled={ btnDisabled }
-        data-testid="login-submit-btn"
-      >
-        Enter
-      </button>
+    <section className="mainLogin">
+      <div className="bkgLogin" />
+      <div className="formLogin">
+        <img src={ imageIcon } alt="Icon" />
+        <input
+          type="text"
+          name="email"
+          value={ login.email }
+          onChange={ handleChange }
+          placeholder="Email"
+          data-testid="email-input"
+        />
+        <input
+          type="password"
+          name="password"
+          value={ login.password }
+          onChange={ handleChange }
+          placeholder="Password"
+          data-testid="password-input"
+        />
+        <button
+          type="button"
+          onClick={ handleClick }
+          disabled={ btnDisabled }
+          data-testid="login-submit-btn"
+        >
+          Enter
+        </button>
+      </div>
     </section>
   );
 }
