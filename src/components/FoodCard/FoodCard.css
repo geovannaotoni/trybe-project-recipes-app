@@ -1,0 +1,35 @@
+.FoodCard {
+  background-color: rgba(255, 99, 71, 0.199);
+  border: none;
+  border-radius: 10px;
+  display: inline-block;
+  margin: 2px 4px 4px;
+  padding: 0;
+  position: relative;
+  width: 150px;
+}
+
+.imgFC {
+  border-radius: 10px;
+  display: block;
+  height: 100%;
+  width: 100%;
+  z-index: 5;
+}
+
+.pFC {
+  background-color: white;
+  border-radius: 6px;
+  bottom: -16px;
+  box-shadow: 0 -5px 5px 0 white;
+  left: 2px;
+  position: absolute;
+  width: 98%;
+  z-index: 6;
+}
+
+.FoodCard:hover {
+  border-left: 1px solid tomato;
+  border-right: 1px solid tomato;
+  border-top: 1px solid tomato;
+}

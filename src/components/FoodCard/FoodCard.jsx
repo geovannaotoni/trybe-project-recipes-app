@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { useHistory } from 'react-router-dom';
+import './FoodCard.css';
 
 export default function FoodCard(props) {
   // History
@@ -16,19 +17,17 @@ export default function FoodCard(props) {
     <button
       className="FoodCard"
       data-testid={ testCard }
-      style={ {
-        border: '1px solid black',
-      } }
       onClick={ redirectToDetail }
     >
       <img
-        style={ { maxWidth: '40vw' } }
+        className="imgFC"
         data-testid={ testImg }
         src={ result.strMealThumb || result.strDrinkThumb }
         alt={ result.strMeal || result.strDrink }
       />
       <p
         data-testid={ testTitle }
+        className="pFC"
       >
         { result.strMeal || result.strDrink }
       </p>

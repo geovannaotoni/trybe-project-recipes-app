@@ -10,6 +10,7 @@ function Footer() {
   return (
     <footer
       data-testid="footer"
+      className="footer"
     >
       <button type="button" onClick={ () => history.push('/meals') }>
         <img

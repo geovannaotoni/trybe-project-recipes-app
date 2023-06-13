@@ -1,5 +1,21 @@
-footer {
+.footer {
+  background-color: #ffc429;
   bottom: 0;
+  box-shadow: 0 -5px 5px 0 #ffc429;
+  display: flex;
+  justify-content: space-between;
+  padding: 8px;
   position: fixed;
   width: 100%;
+  z-index: 8000;
+}
+
+.footer button {
+  background-color: transparent;
+  border: none;
+}
+
+.footer button:hover {
+  background-color: transparent;
+  border-bottom: 1px solid tomato;
 }
