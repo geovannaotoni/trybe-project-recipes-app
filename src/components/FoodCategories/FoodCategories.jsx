@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import RecipesContext from '../../context/RecipesContext';
 import { fetchAPI } from '../../services/fetchAPI';
 import { API_URL, showError } from '../../services/helpers';
+import './FoodCategories.css';
 
 const MAX_CATEGORIES = 5;
 
@@ -50,12 +51,20 @@ export default function FoodCategories() {
     }
   };
 
+  // Ternario para verificar em qual pag ta e retornar a classe para o botão ALL
+  const resultpage = categories && categories[0]
+    .strCategory === 'Beef' ? 'AllMeals' : 'AllDrinks';
+
+  const resultpage2 = categories && categories[0]
+    .strCategory === 'Beef' ? 'FoodCategories' : 'DrinksCategories';
+
   // Retorno visual
   return (
-    <div className="FoodCategories">
+    <div className={ resultpage2 }>
       <button
         data-testid="All-category-filter"
         onClick={ handleClick }
+        className={ resultpage }
       >
         All
 
@@ -67,6 +76,7 @@ export default function FoodCategories() {
             key={ index }
             data-testid={ `${strCategory}-category-filter` }
             onClick={ handleClick }
+            className={ strCategory }
           >
             {strCategory}
 

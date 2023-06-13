@@ -1,0 +1,108 @@
+.FoodCategories {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  margin: 10px 0;
+  width: 90%;
+}
+
+.AllMeals, .Beef, .Breakfast, .Chicken, .Dessert, .Goat {
+  align-items: center;
+  background-color: transparent;
+  border: none;
+  color: tomato;
+  display: flex;
+  flex-direction: column;
+  font-size: 11px;
+  justify-content: center;
+  padding: 2px;
+}
+
+.AllMeals:hover, .Beef:hover, .Breakfast:hover {
+  background-color: #ffc429;
+  border-radius: 10px;
+}
+
+.Chicken:hover, .Dessert:hover, .Goat:hover {
+  background-color: #ffc429;
+  border-radius: 10px;
+}
+
+.AllMeals:before {
+  content: url('../../images/IconsCategory/All.svg');
+}
+
+.Beef:before {
+  content: url('../../images/IconsCategory/beef.svg');
+}
+
+.Breakfast:before {
+  content: url('../../images/IconsCategory/breakfast.svg');
+}
+
+.Chicken:before {
+  content: url('../../images/IconsCategory/chicken.svg');
+}
+
+.Dessert:before {
+  content: url('../../images/IconsCategory/dessert.svg');
+}
+
+.Goat:before {
+  content: url('../../images/IconsCategory/goat.svg');
+}
+
+.DrinksCategories {
+  align-items: baseline;
+  display: flex;
+  justify-content: center;
+  margin: 10px 0;
+  width: 90%;
+}
+
+.AllDrinks, .Ordinary, .Cocktail, .Shake, .Other, .Cocoa {
+  align-items: center;
+  background-color: transparent;
+  border: none;
+  color: tomato;
+  display: flex;
+  flex-direction: column;
+  font-size: 10px;
+  justify-content: center;
+  max-width: 50px;
+  padding: 2px;
+}
+
+.AllDrinks:hover, .Ordinary:hover, .Cocktail:hover {
+  background-color: #ffc429;
+  border-radius: 10px;
+}
+
+.Shake:hover, .Other:hover, .Cocoa:hover {
+  background-color: #ffc429;
+  border-radius: 10px;
+}
+
+.AllDrinks:before {
+  content: url('../../images/IconsCategory/AllDrinks.svg');
+}
+
+.Ordinary:before {
+  content: url('../../images/IconsCategory/drink.svg');
+}
+
+.Cocktail:before {
+  content: url('../../images/IconsCategory/cocktail.svg');
+}
+
+.Shake:before {
+  content: url('../../images/IconsCategory/shake.svg');
+}
+
+.Other:before {
+  content: url('../../images/IconsCategory/other.svg');
+}
+
+.Cocoa:before {
+  content: url('../../images/IconsCategory/cocoa.svg');
+}
