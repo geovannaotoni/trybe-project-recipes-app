@@ -4,6 +4,8 @@ import { useHistory } from 'react-router-dom';
 import profileIconImage from '../../images/profileIcon.svg';
 import searchIconImage from '../../images/searchIcon.svg';
 import SearchBar from '../SearchBar/SearchBar';
+import './Header.css';
+import logoIcon from '../../images/logoComFundo.svg';
 
 function Header({ pageTitle }) {
   const history = useHistory();
@@ -11,19 +13,34 @@ function Header({ pageTitle }) {
   const pagesToShowSearchIcon = ['/meals', '/drinks'];
   const { location: { pathname } } = history;
   return (
-    <header>
-      <button type="button" onClick={ () => history.push('/profile') }>
-        <img src={ profileIconImage } alt="profile-icon" data-testid="profile-top-btn" />
-      </button>
-      {
-        pagesToShowSearchIcon.includes(pathname) && (
-          <button type="button" onClick={ () => setShowInput(!showInput) }>
-            <img src={ searchIconImage } alt="search-icon" data-testid="search-top-btn" />
+    <header className="mainHeader">
+      <div className="iconsHeader">
+        <img src={ logoIcon } alt="Icon" className="logoHeader" />
+        <div>
+          <button type="button" onClick={ () => history.push('/profile') }>
+            <img
+              src={ profileIconImage }
+              alt="profile-icon"
+              data-testid="profile-top-btn"
+            />
           </button>
-        )
-      }
-      <h1 data-testid="page-title">{pageTitle}</h1>
-      {showInput && <SearchBar />}
+          {
+            pagesToShowSearchIcon.includes(pathname) && (
+              <button type="button" onClick={ () => setShowInput(!showInput) }>
+                <img
+                  src={ searchIconImage }
+                  alt="search-icon"
+                  data-testid="search-top-btn"
+                />
+              </button>
+            )
+          }
+        </div>
+      </div>
+      <div className="titleHeader">
+        <h1 data-testid="page-title" className={ pageTitle }>{pageTitle}</h1>
+        {showInput && <SearchBar />}
+      </div>
     </header>
   );
 }
