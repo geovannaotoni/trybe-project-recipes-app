@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import clipboardCopy from 'clipboard-copy';
 import { Link } from 'react-router-dom';
 import shareIconImage from '../../images/shareIcon.svg';
+import './useRecipeCards.css';
 
 function useRecipeCards() {
   const [shareBtn, setShareBtn] = useState(false);
@@ -31,53 +32,55 @@ function useRecipeCards() {
   };
 
   const renderRecipeCard = (recipe, index) => (
-    <>
+    <div className="mainUseRecipeCard">
       <Link to={ `/${recipe.type}s/${recipe.id}` }>
         <img
           src={ recipe.image }
           alt={ recipe.name }
           data-testid={ `${index}-horizontal-image` }
-          width="100px"
+          className="imgURC"
           // precisei colocar o width de 100px para passar no cypress, porque a imagem estava muito grande pro teste
         />
       </Link>
-      <Link to={ `/${recipe.type}s/${recipe.id}` }>
-        <p data-testid={ `${index}-horizontal-name` }>
-          {recipe.name }
+      <div className="infosURC">
+        <Link to={ `/${recipe.type}s/${recipe.id}` } className="link">
+          <p data-testid={ `${index}-horizontal-name` } className="titleURC">
+            {recipe.name }
+          </p>
+        </Link>
+        {
+          recipe.type === 'meal' && (
+            <p data-testid={ `${index}-horizontal-top-text` } className="categURC">
+              { `${recipe.nationality} - ${recipe.category}` }
+            </p>
+          )
+        }
+        {
+          recipe.type === 'drink' && (
+            <p data-testid={ `${index}-horizontal-top-text` } className="categURC">
+              { recipe.alcoholicOrNot }
+            </p>
+          )
+        }
+        {
+          recipe.doneDate && (
+            <p data-testid={ `${index}-horizontal-done-date` } className="dateURC">
+              {recipe.doneDate }
+            </p>
+          )
+        }
+        <p>
+          {renderTags(recipe, index)}
         </p>
-      </Link>
-      {
-        recipe.type === 'meal' && (
-          <p data-testid={ `${index}-horizontal-top-text` }>
-            { `${recipe.nationality} - ${recipe.category}` }
-          </p>
-        )
-      }
-      {
-        recipe.type === 'drink' && (
-          <p data-testid={ `${index}-horizontal-top-text` }>
-            { recipe.alcoholicOrNot }
-          </p>
-        )
-      }
-      {
-        recipe.doneDate && (
-          <p data-testid={ `${index}-horizontal-done-date` }>
-            {recipe.doneDate }
-          </p>
-        )
-      }
-      <p>
-        {renderTags(recipe, index)}
-      </p>
-      <button type="button" onClick={ () => handleShare(recipe) }>
+      </div>
+      <button type="button" onClick={ () => handleShare(recipe) } className="btnuRC">
         <img
           src={ shareIconImage }
           alt="Share Icon"
           data-testid={ `${index}-horizontal-share-btn` }
         />
       </button>
-    </>
+    </div>
   );
 
   return {

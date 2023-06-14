@@ -1,0 +1,40 @@
+@media screen and ( max-width : 640px ) {
+
+  .mainRDones {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .DRCardsArea {
+    margin-top: 50px;
+    padding: 20px;
+    width: 95vw;
+  }
+
+  .cardDR {
+    background-color: #271712;
+    border-radius: 10px;
+    display: flex;
+    margin: 4px 0 20px;
+    padding: 10px;
+  }
+
+  .cardDR[ name = 'drink' ] {
+    background-color: #fe724c;
+  }
+
+  .cardDR[ name = 'drink' ]:hover {
+    background-color: #e65128;
+    transition: 1s;
+  }
+
+  .cardDR[ name = 'meal' ] {
+    background-color: #ffc429;
+  }
+
+  .cardDR[ name = 'meal' ]:hover {
+    background-color: #f1b51b;
+    transition: 1s;
+  }
+}

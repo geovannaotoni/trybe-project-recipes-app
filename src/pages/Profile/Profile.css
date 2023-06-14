@@ -1,0 +1,60 @@
+.mainProfile {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.btnAreaProfile {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 400px;
+  padding: 10px;
+  width: 80vw;
+}
+
+.emailprof {
+  color: tomato;
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 40px;
+}
+
+.divbtnProf {
+  border-bottom: 1px solid #ffc429;
+  padding: 10px 0;
+  width: 80%;
+}
+
+.btnDonesProf, .btnFavProf, .btnLOutProf {
+  align-items: center;
+  background-color: transparent;
+  border: none;
+  color: tomato;
+  display: flex;
+  flex-direction: row;
+  font-size: 18px;
+  justify-content: start;
+  padding: 2px;
+  width: 100%;
+}
+
+.divbtnProf:hover {
+  border-bottom: 1px solid #ee7b1c;
+}
+
+.btnDonesProf:before {
+  content: url('../../images/IconsCategory/dones.svg');
+  margin-right: 10px;
+}
+
+.btnFavProf:before {
+  content: url('../../images/IconsCategory/fav.svg');
+  margin-right: 10px;
+}
+
+.btnLOutProf:before {
+  content: url('../../images/IconsCategory/logout.svg');
+  margin-right: 10px;
+}

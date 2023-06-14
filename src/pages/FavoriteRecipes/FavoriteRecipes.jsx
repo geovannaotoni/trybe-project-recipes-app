@@ -4,6 +4,7 @@ import useFilterButtons from '../../hooks/useFilterButtons/useFilterButtons';
 import useRecipeCards from '../../hooks/useRecipeCards/useRecipeCards';
 import favoriteBlackIcon from '../../images/blackHeartIcon.svg';
 import { getFromStorage, setOnStorage } from '../../services/localStorage';
+import './FavoriteRecipes.css';
 
 function FavoriteRecipes() {
   const { filterType, renderButtons } = useFilterButtons();
@@ -25,24 +26,29 @@ function FavoriteRecipes() {
   };
 
   return (
-    <div>
+    <div className="mainRDones">
       <Header pageTitle="Favorite Recipes" />
       { renderButtons() }
-      <section>
+      <section className="DRCardsArea">
         {
           favoriteRecipes
             .filter((recipe) => recipe.type.includes(filterType))
             .map((recipe, index) => (
-              <article key={ index }>
+              <div key={ index } className="cardFav" name={ recipe.type }>
                 {renderRecipeCard(recipe, index)}
-                <button onClick={ () => handleFavorite(recipe) } type="button">
+                <button
+                  onClick={ () => handleFavorite(recipe) }
+                  type="button"
+                  className="btnFav"
+                  name={ recipe.type }
+                >
                   <img
                     data-testid={ `${index}-horizontal-favorite-btn` }
                     src={ favoriteBlackIcon }
                     alt="favoriteIco"
                   />
                 </button>
-              </article>
+              </div>
             ))
         }
         { shareBtn && <p>Link copied!</p>}

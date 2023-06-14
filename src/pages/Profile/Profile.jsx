@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/footer/Footer';
 import { getFromStorage } from '../../services/localStorage';
+import './Profile.css';
 
 function Profile() {
   const history = useHistory();
@@ -15,29 +16,37 @@ function Profile() {
   };
 
   return (
-    <div>
+    <div className="mainProfile">
       <Header pageTitle="Profile" />
-      <div>
-        <p data-testid="profile-email">{email}</p>
-        <button
-          onClick={ () => history.push('/done-recipes') }
-          data-testid="profile-done-btn"
-        >
-          Done Recipes
-        </button>
-        <button
-          onClick={ () => history.push('/favorite-recipes') }
-          data-testid="profile-favorite-btn"
-        >
-          Favorite Recipes
-        </button>
-        <button
-          onClick={ () => cleanLocalStorage() }
-          data-testid="profile-logout-btn"
-        >
-          Logout
-
-        </button>
+      <div className="btnAreaProfile">
+        <p data-testid="profile-email" className="emailprof">{email}</p>
+        <div className="divbtnProf">
+          <button
+            onClick={ () => history.push('/done-recipes') }
+            data-testid="profile-done-btn"
+            className="btnDonesProf"
+          >
+            Done Recipes
+          </button>
+        </div>
+        <div className="divbtnProf">
+          <button
+            onClick={ () => history.push('/favorite-recipes') }
+            data-testid="profile-favorite-btn"
+            className="btnFavProf"
+          >
+            Favorite Recipes
+          </button>
+        </div>
+        <div className="divbtnProf">
+          <button
+            onClick={ () => cleanLocalStorage() }
+            data-testid="profile-logout-btn"
+            className="btnLOutProf"
+          >
+            Logout
+          </button>
+        </div>
       </div>
       <Footer />
     </div>

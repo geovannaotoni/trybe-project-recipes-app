@@ -5,7 +5,7 @@ import profileIconImage from '../../images/profileIcon.svg';
 import searchIconImage from '../../images/searchIcon.svg';
 import SearchBar from '../SearchBar/SearchBar';
 import './Header.css';
-import logoIcon from '../../images/logoComFundo.svg';
+import logoIcon from '../../images/logoComFundo2.svg';
 
 function Header({ pageTitle }) {
   const history = useHistory();
@@ -15,7 +15,9 @@ function Header({ pageTitle }) {
   return (
     <header className="mainHeader">
       <div className="iconsHeader">
-        <img src={ logoIcon } alt="Icon" className="logoHeader" />
+        <div className="logoheaderDiv">
+          <img src={ logoIcon } alt="Icon" className="logoHeader" />
+        </div>
         <div>
           <button type="button" onClick={ () => history.push('/profile') }>
             <img

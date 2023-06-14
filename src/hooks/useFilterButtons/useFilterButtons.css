@@ -1,0 +1,36 @@
+.mainUDB {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.btnALLALL, .btnALLMeals, .btnALLDrinks {
+  align-items: center;
+  background-color: transparent;
+  border: none;
+  color: tomato;
+  display: flex;
+  flex-direction: column;
+  font-size: 10px;
+  justify-content: center;
+  padding: 2px;
+  width: 80px;
+}
+
+.btnALLALL:hover, .btnALLMeals:hover, .btnALLDrinks:hover {
+  background-color: #ffc429;
+  border-radius: 10px;
+}
+
+.btnALLALL:before {
+  content: url('../../images/IconsCategory/AllAll.svg');
+}
+
+.btnALLMeals:before {
+  content: url('../../images/IconsCategory/AllfoodsBig.svg');
+}
+
+.btnALLDrinks:before {
+  content: url('../../images/IconsCategory/AlldrinksBig.svg');
+}

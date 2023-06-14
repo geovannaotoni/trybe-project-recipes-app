@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './useFilterButtons.css';
 
 function useFilterButtons() {
   const [filterType, setFilterType] = useState('');
@@ -12,11 +13,12 @@ function useFilterButtons() {
   };
 
   const renderButtons = () => (
-    <section>
+    <section className="mainUDB">
       <button
         type="button"
         data-testid="filter-by-all-btn"
         onClick={ () => handleFilter('') }
+        className="btnALLALL"
       >
         All
       </button>
@@ -24,6 +26,7 @@ function useFilterButtons() {
         type="button"
         data-testid="filter-by-meal-btn"
         onClick={ () => handleFilter('meal') }
+        className="btnALLMeals"
       >
         Meals
       </button>
@@ -31,6 +34,7 @@ function useFilterButtons() {
         type="button"
         data-testid="filter-by-drink-btn"
         onClick={ () => handleFilter('drink') }
+        className="btnALLDrinks"
       >
         Drinks
       </button>

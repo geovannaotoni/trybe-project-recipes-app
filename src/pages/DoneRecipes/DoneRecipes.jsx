@@ -3,6 +3,7 @@ import Header from '../../components/Header/Header';
 import { getFromStorage } from '../../services/localStorage';
 import useFilterButtons from '../../hooks/useFilterButtons/useFilterButtons';
 import useRecipeCards from '../../hooks/useRecipeCards/useRecipeCards';
+import './DoneRecipes.css';
 
 function DoneRecipes() {
   const [doneRecipes, setDoneRecipes] = useState([]);
@@ -17,17 +18,17 @@ function DoneRecipes() {
   }, []);
 
   return (
-    <div>
+    <div className="mainFAV">
       <Header pageTitle="Done Recipes" />
       { renderButtons() }
-      <section>
+      <section className="FAVCardsArea">
         {
           doneRecipes
             .filter((recipe) => recipe.type.includes(filterType))
             .map((recipe, index) => (
-              <article key={ index }>
+              <div key={ index } className="cardDR" name={ recipe.type }>
                 {renderRecipeCard(recipe, index)}
-              </article>
+              </div>
             ))
         }
         { shareBtn && <p>Link copied!</p>}

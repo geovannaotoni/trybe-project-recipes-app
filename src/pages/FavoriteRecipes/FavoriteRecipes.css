@@ -1,0 +1,64 @@
+@media screen and ( max-width : 640px ) {
+
+  .mainFAV {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .FAVCardsArea {
+    margin-top: 50px;
+    padding: 20px;
+    width: 95vw;
+  }
+
+  .cardFav {
+    background-color: #c0bebe;
+    border-radius: 10px;
+    display: flex;
+    margin: 4px 0 20px;
+    padding: 10px;
+    position: relative;
+  }
+
+  .cardFav[ name = 'drink' ] {
+    background-color: #fe724c;
+  }
+
+  .cardFav[ name = 'drink' ]:hover {
+    background-color: #e65128;
+    transition: 1s;
+  }
+
+  .cardFav[ name = 'meal' ] {
+    background-color: #ffc429;
+  }
+
+  .cardFav[ name = 'meal' ]:hover {
+    background-color: #f1b51b;
+    transition: 1s;
+  }
+
+  .btnFav {
+    background-color: white;
+    border: 1px solid tomato;
+    border-radius: 50%;
+    left: -10px;
+    padding: 6px;
+    position: absolute;
+    top: -10px;
+  }
+
+  .btnFav[ name = 'drink' ] {
+    border: 1px solid #e65128;
+  }
+
+  .btnFav[ name = 'meal' ] {
+    border: 1px solid #ffc429;
+  }
+
+  .btnFav:hover {
+    background-color: rgb(219, 213, 213);
+    transition: 1s;
+  }
+}
