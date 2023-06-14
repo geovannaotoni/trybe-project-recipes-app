@@ -1,35 +1,15 @@
-.mealsPage img, .drinksPage img {
-  height: 100px;
-  width: 100px;
-}
-
 .mainRecipeDetails {
-  height: 100vh;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: center;
   overflow: auto;
   padding: 44px 0;
-  position: relative;
   width: 100vw;
 }
 
-.start-recipe-btn {
-  bottom: 0;
-  position: fixed;
-  width: 100vw;
-  z-index: 99999;
+.bodyRD {
+  height: 100%;
+  width: 100%;
 }
-
-.buttonsFavAndShare {
-  position: absolute;
-  right: 10px;
-  top: 10px;
-}
-
-/* .slc {
-  box-sizing: border-box;
-  margin: 0 auto 50px;
-
-   max-height: 600px;
-  overflow-x: scroll;
-  overflow-y: hidden;
-  width: 100vw;
-} */

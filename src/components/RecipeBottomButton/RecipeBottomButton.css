@@ -1,7 +1,36 @@
 .RecipeBottomButton {
+  border: none;
   bottom: 0;
+  font-size: 20px;
+  font-weight: 700;
+  height: 40px;
   left: 0;
   position: fixed;
   width: 100vw;
   z-index: 99999;
+}
+
+.RecipeBottomButton[ id ~= 'start' ] {
+  background: linear-gradient(to bottom, #fe724c 5%, #ebb35e 100%);
+  color: white;
+}
+
+.RecipeBottomButton[ id ~= 'start' ]:disabled {
+  background: linear-gradient(to bottom, #f7aa95 5%, #f1cf9c 100%);
+  color: rgb(180, 150, 150);
+}
+
+.RecipeBottomButton[ id ~= 'start' ]:hover {
+  font-size: 21px;
+  transition: 1s;
+}
+
+.RecipeBottomButton[ id ~= 'Continue' ] {
+  background: linear-gradient(to bottom, #ebb35e 5%, #fe724c 100%);
+  color: white;
+}
+
+.RecipeBottomButton[ id ~= 'Continue' ]:hover {
+  font-size: 21px;
+  transition: 1s;
 }

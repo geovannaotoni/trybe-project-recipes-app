@@ -29,7 +29,7 @@
 }
 
 .FoodCard:hover {
-  border-left: 1px solid tomato;
-  border-right: 1px solid tomato;
-  border-top: 1px solid tomato;
+  border-left: 1px solid #fe724c;
+  border-right: 1px solid #fe724c;
+  border-top: 1px solid #fe724c;
 }

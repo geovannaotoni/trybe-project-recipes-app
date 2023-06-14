@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import './VideoFrame.css';
 
 export default function VideoFrame(props) {
   const { food } = props;
@@ -21,6 +22,7 @@ export default function VideoFrame(props) {
       clipboard-write; encrypted-media; gyroscope; picture-in-picture"
       allowFullScreen
       data-testid="video"
+      className="video"
     />
   );
 }

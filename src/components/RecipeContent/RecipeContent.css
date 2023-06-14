@@ -1,0 +1,80 @@
+@media screen and ( max-width : 640px ) {
+
+  .mealsPage, .drinksPage {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding-top: 190px;
+    position: relative;
+  }
+
+  .mealsPage img, .drinksPage img {
+    height: 200px;
+    position: absolute;
+    top: -25px;
+    width: 100%;
+    z-index: 0;
+  }
+
+  .titleAndCategor {
+    background-color: #ffc229;
+    box-shadow: 0 5px 10px 2px #ffc229dc;
+    height: 55px;
+    position: absolute;
+    top: -45px;
+    width: 100%;
+    z-index: 7777;
+  }
+
+  .titleRC {
+    font-size: 25px;
+    margin-left: 10px;
+    margin-top: 5px;
+  }
+
+  .categoryRC {
+    text-align: center;
+    width: 100%;
+  }
+
+  .categoryRC:before {
+    content: 'Category: ';
+    margin-right: 5px;
+  }
+
+  .recipe-ingredients {
+    border: 1px solid #fe724c;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    margin: 0 0 20px;
+    padding: 20px;
+    width: 90vw;
+  }
+
+  .checkIngred {
+    margin: 8px;
+  }
+
+  .labelIngredi:hover {
+    background-color: #fe734c;
+    border-radius: 4px;
+    color: aliceblue;
+  }
+
+  .falseRC {
+    color: rgba(240, 248, 255, 0.226);
+    position: absolute;
+    right: 0;
+  }
+
+  .instrucRC {
+    background-color: #ffc229;
+    border-radius: 10px;
+    font-style: italic;
+    padding: 20px;
+    text-align: justify;
+    width: 90%;
+  }
+}

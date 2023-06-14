@@ -59,3 +59,127 @@
     margin-right: 10px;
   }
 }
+
+@media screen and ( max-width : 1200px ) {
+
+  .mainHeader {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    width: 100%;
+  }
+
+  .mainHeader button {
+    background-color: transparent;
+    border: none;
+    margin: 0 20px;
+    padding: 4px;
+  }
+
+  .iconsHeader {
+    align-items: center;
+    background-color: #fe724c;
+    display: flex;
+    height: 80px;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .logoHeader {
+    border-radius: 20px;
+    margin-left: 10px;
+    width: 60px;
+  }
+
+  .titleHeader {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 20px;
+    width: 100%;
+  }
+
+  .Meals {
+    align-items: center;
+    display: flex;
+  }
+
+  .Meals:before {
+    content: url('../../images/mealIcon.svg');
+    margin-right: 10px;
+  }
+
+  .Drinks {
+    align-items: center;
+    display: flex;
+  }
+
+  .Drinks:before {
+    content: url('../../images/drinkIcon.svg');
+    margin-right: 10px;
+  }
+}
+
+@media screen and ( min-width : 1201px ) {
+
+  .mainHeader {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    width: 100%;
+  }
+
+  .mainHeader button {
+    background-color: transparent;
+    border: none;
+    margin: 0 20px;
+    padding: 4px;
+  }
+
+  .iconsHeader {
+    align-items: center;
+    background-color: #fe724c;
+    display: flex;
+    height: 80px;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .logoHeader {
+    border-radius: 20px;
+    margin-left: 10px;
+    width: 60px;
+  }
+
+  .titleHeader {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 20px;
+    width: 100%;
+  }
+
+  .Meals {
+    align-items: center;
+    display: flex;
+  }
+
+  .Meals:before {
+    content: url('../../images/mealIcon.svg');
+    margin-right: 10px;
+  }
+
+  .Drinks {
+    align-items: center;
+    display: flex;
+  }
+
+  .Drinks:before {
+    content: url('../../images/drinkIcon.svg');
+    margin-right: 10px;
+  }
+}

@@ -38,6 +38,7 @@ function RecipeBottomButton(props) {
   const [textButton, setTextButton] = useState('Start Recipe');
   const [testButton, setTestButton] = useState(START_RECIPE_BTN);
   const [isDone, setIsDone] = useState(false);
+  const [typeBtn, setTypeBtn] = useState('start');
   const history = useHistory();
   const { pathname } = history.location;
   const type = pathname.includes('meals') ? 'meals' : 'drinks';
@@ -51,6 +52,7 @@ function RecipeBottomButton(props) {
       const doneRecipes = getFromStorage('doneRecipes') || [];
       const inProgressRecipes = getFromStorage('inProgressRecipes');
       setTextButton('Start Recipe');
+      setTypeBtn('start');
       setTestButton(START_RECIPE_BTN);
       if (doneRecipes.some((recipe) => recipe.id === id)) {
         setIsDone(true);
@@ -60,6 +62,7 @@ function RecipeBottomButton(props) {
       } else if (inProgressRecipes && inProgressRecipes[type][id]) {
         setTextButton('Continue Recipe');
         setTestButton(START_RECIPE_BTN);
+        setTypeBtn('Continue');
       }
     };
 
@@ -81,6 +84,7 @@ function RecipeBottomButton(props) {
       data-testid={ testButton }
       onClick={ handleClick }
       disabled={ buttonDisabled }
+      id={ typeBtn }
     >
       { textButton}
 

@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom';
 import { getFromStorage, setOnStorage } from '../../services/localStorage';
 import RecipeBottomButton from '../RecipeBottomButton/RecipeBottomButton';
 import VideoFrame from '../VideoFrame/VideoFrame';
+import './RecipeContent.css';
 
 export default function RecipeContent(props) {
   // History
@@ -79,7 +80,7 @@ export default function RecipeContent(props) {
 
   const renderIngredients = () => (
     <div className="recipe-ingredients">
-      <p>{buttonDisabled.toString()}</p>
+      <p className="falseRC">{buttonDisabled.toString()}</p>
       {ingredients.map(({ ingredient, measure, isChecked }, index) => (
         <label
           key={ index }
@@ -88,6 +89,7 @@ export default function RecipeContent(props) {
             : `${index}-ingredient-name-and-measure` }
           style={ isChecked ? style : {} }
           htmlFor={ `${index}-ingredient-step` }
+          className="labelIngredi"
         >
           <input
             type="checkbox"
@@ -97,6 +99,7 @@ export default function RecipeContent(props) {
             disabled={ !isInProgress }
             value={ index }
             onChange={ handleCheck }
+            className="checkIngred"
           />
           {`${ingredient} - ${measure}`}
         </label>
@@ -106,10 +109,20 @@ export default function RecipeContent(props) {
 
   return (
     <div className={ `${type}Page` }>
+      <div className="titleAndCategor">
+        <p
+          data-testid="recipe-title"
+          className="titleRC"
+        >
+          {food.strMeal || food.strDrink}
+
+        </p>
+      </div>
       <p
-        data-testid="recipe-title"
+        data-testid="recipe-category"
+        className="categoryRC"
       >
-        {food.strMeal || food.strDrink}
+        { `${type === 'meals' ? food.strCategory : food.strAlcoholic}`}
 
       </p>
       <img
@@ -117,14 +130,8 @@ export default function RecipeContent(props) {
         alt={ food.strMeal || food.strDrink }
         data-testid="recipe-photo"
       />
-      <p
-        data-testid="recipe-category"
-      >
-        { `${type === 'meals' ? food.strCategory : food.strAlcoholic}`}
-
-      </p>
       {renderIngredients()}
-      <p data-testid="instructions">{food.strInstructions}</p>
+      <p data-testid="instructions" className="instrucRC">{food.strInstructions}</p>
       {showVideo && <VideoFrame food={ food } />}
       <RecipeBottomButton
         food={ food }

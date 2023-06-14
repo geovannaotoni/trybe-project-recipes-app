@@ -25,12 +25,11 @@ function RecipeDetails() {
     <div className="mainRecipeDetails">
       {
         food && (
-          <>
-            <Recommendations />
+          <div className="bodyRD">
             <FavAndShareButtons food={ food } />
             <RecipeContent food={ food } />
-
-          </>
+            <Recommendations />
+          </div>
         )
       }
     </div>

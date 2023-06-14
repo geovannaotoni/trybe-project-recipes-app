@@ -29,13 +29,16 @@ function Recommendations() {
   return (
     <div className="carousel-container">
       {
-        recommendations.map((rec, index) => (<FoodCard
-          key={ index }
-          result={ rec }
-          index={ index }
-          testCard={ `${index}-recommendation-card` }
-          testTitle={ `${index}-recommendation-title` }
-        />))
+        recommendations.map((rec, index) => (
+          <div key={ index }>
+            <FoodCard
+              result={ rec }
+              index={ index }
+              testCard={ `${index}-recommendation-card` }
+              testTitle={ `${index}-recommendation-title` }
+            />
+          </div>
+        ))
       }
     </div>
   );
