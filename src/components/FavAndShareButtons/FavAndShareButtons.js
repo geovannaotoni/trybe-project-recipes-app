@@ -8,6 +8,7 @@ import shareIMG from '../../images/shareIcon.svg';
 import emptyHeart from '../../images/whiteHeartIcon.svg';
 import { getFromStorage, setOnStorage } from '../../services/localStorage';
 import './FavAndShareButtons.css';
+import { copyMsg } from '../../services/helpers';
 
 function FavAndShareButtons(props) {
   const history = useHistory();
@@ -15,7 +16,7 @@ function FavAndShareButtons(props) {
   const parts = currentPath.split('/');
   const [, type, id] = parts;
   const [isFavorite, setIsFavorite] = useState(false); // state que verifica se a receita foi favoritada ou não
-  const [linkCopied, setLinkCopied] = useState(false); // state que verifica se o link foi copiado ou não
+  // const [linkCopied, setLinkCopied] = useState(false); // state que verifica se o link foi copiado ou não
 
   const { food } = props;
 
@@ -51,17 +52,10 @@ function FavAndShareButtons(props) {
     setOnStorage('favoriteRecipes', newLS); // Salvo no LS
   };
 
-  const resetLinkCopied = () => { // Função para resetar o state de link copiado
-    setLinkCopied(false);
-  };
-
   const handleCopyLink = () => { // Função para copiar o link
-    const Wait = 2000;
     const link = `${window.location.origin}/${type}/${id}`;
     clipboardCopy(link);
-    setLinkCopied(true);
-    global.alert('Link copied!');
-    setTimeout(resetLinkCopied, Wait);
+    copyMsg();
   };
 
   return (
@@ -78,7 +72,6 @@ function FavAndShareButtons(props) {
       <button onClick={ handleCopyLink }>
         <img src={ shareIMG } alt="Share This" data-testid="share-btn" />
       </button>
-      {linkCopied && <p>Link copied!</p>}
     </div>
   );
 }

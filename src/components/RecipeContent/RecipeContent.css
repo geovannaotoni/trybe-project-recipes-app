@@ -11,6 +11,7 @@
 
   .mealsPage img, .drinksPage img {
     height: 200px;
+    object-fit: cover;
     position: absolute;
     top: -25px;
     width: 100%;
@@ -57,6 +58,10 @@
     margin: 8px;
   }
 
+  .checkIngred:disabled {
+    opacity: 0;
+  }
+
   .labelIngredi:hover {
     background-color: #fe734c;
     border-radius: 4px;
@@ -72,9 +77,16 @@
   .instrucRC {
     background-color: #ffc229;
     border-radius: 10px;
+    display: inline-block;
     font-style: italic;
     padding: 20px;
     text-align: justify;
+    white-space: pre-wrap;
     width: 90%;
+  }
+
+  .instrucRC:after {
+    content: '.';
+    margin-right: 0.5em; /* Espaço extra após o ponto */
   }
 }

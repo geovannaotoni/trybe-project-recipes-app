@@ -40,3 +40,10 @@ export const showError = (message) => {
   });
   // podemos inserir callback de retorno, timer, etc, etc
 };
+
+export const copyMsg = () => {
+  Swal.fire({
+    title: 'Link copied!',
+    confirmButtonColor: '#fe724c',
+  });
+};

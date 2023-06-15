@@ -14,7 +14,7 @@
     "react-dom": "^18.2.0",
     "react-router-dom": "^5.3.4",
     "react-scripts": "^5.0.1",
-    "sweetalert2": "^11.7.10",
+    "sweetalert2": "^11.7.12",
     "validator": "^13.9.0"
   },
   "scripts": {

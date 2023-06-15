@@ -51,7 +51,7 @@ function FavoriteRecipes() {
               </div>
             ))
         }
-        { shareBtn && <p>Link copied!</p>}
+        { shareBtn }
       </section>
     </div>
   );

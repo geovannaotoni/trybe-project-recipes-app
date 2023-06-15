@@ -3,6 +3,7 @@ import clipboardCopy from 'clipboard-copy';
 import { Link } from 'react-router-dom';
 import shareIconImage from '../../images/shareIcon.svg';
 import './useRecipeCards.css';
+import { copyMsg } from '../../services/helpers';
 
 function useRecipeCards() {
   const [shareBtn, setShareBtn] = useState(false);
@@ -10,6 +11,7 @@ function useRecipeCards() {
   const handleShare = (recipe) => {
     const currentDomain = window.location.origin;
     clipboardCopy(`${currentDomain}/${recipe.type}s/${recipe.id}`);
+    copyMsg();
     setShareBtn(true);
   };
 
