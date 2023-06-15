@@ -38,3 +38,103 @@
     transition: 1s;
   }
 }
+
+@media screen and ( min-width : 641px ) {
+
+  .mainRDones {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .DRCardsArea {
+    margin-top: 50px;
+    padding: 20px;
+    width: 100vw;
+  }
+
+  .FAVCardsArea {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 40px;
+  }
+
+  .cardDR {
+    background-color: #271712;
+    border-radius: 10px;
+    display: flex;
+    margin: 4px 0 20px;
+    padding: 10px;
+    width: 60%;
+  }
+
+  .cardDR[ name = 'drink' ] {
+    background-color: #fe724c;
+  }
+
+  .cardDR[ name = 'drink' ]:hover {
+    background-color: #e65128;
+    transition: 1s;
+  }
+
+  .cardDR[ name = 'meal' ] {
+    background-color: #ffc429;
+  }
+
+  .cardDR[ name = 'meal' ]:hover {
+    background-color: #f1b51b;
+    transition: 1s;
+  }
+}
+
+@media screen and ( min-width : 1201px ) {
+
+  .mainRDones {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .DRCardsArea {
+    margin-top: 50px;
+    padding: 20px;
+    width: 100vw;
+  }
+
+  .FAVCardsArea {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 40px;
+  }
+
+  .cardDR {
+    background-color: #271712;
+    border-radius: 10px;
+    display: flex;
+    margin: 4px 0 20px;
+    padding: 10px;
+    width: 60%;
+  }
+
+  .cardDR[ name = 'drink' ] {
+    background-color: #fe724c;
+  }
+
+  .cardDR[ name = 'drink' ]:hover {
+    background-color: #e65128;
+    transition: 1s;
+  }
+
+  .cardDR[ name = 'meal' ] {
+    background-color: #ffc429;
+  }
+
+  .cardDR[ name = 'meal' ]:hover {
+    background-color: #f1b51b;
+    transition: 1s;
+  }
+}

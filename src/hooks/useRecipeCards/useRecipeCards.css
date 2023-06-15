@@ -64,3 +64,73 @@
   font-size: 14px;
   margin-top: 10px;
 }
+
+@media screen and ( min-width : 1201px ) {
+
+  .mainUseRecipeCard {
+    align-items: center;
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    padding: 10px 0;
+    position: relative;
+    width: 100%;
+  }
+
+  .btnuRC {
+    background-color: white;
+    border: none;
+    border-radius: 50%;
+    padding: 6px;
+    position: absolute;
+    right: -20px;
+    top: -20px;
+  }
+
+  .btnuRC:hover {
+    background-color: rgb(219, 213, 213);
+    transition: 1s;
+  }
+
+  .infosURC {
+    align-items: start;
+    box-sizing: content-box;
+    display: flex;
+    flex-direction: column;
+    height: 100px;
+    justify-content: center;
+    width: 80%;
+  }
+
+  .imgURC {
+    border-radius: 10px 0 0 10px;
+    width: 100px;
+  }
+
+  .link {
+    color: black;
+    text-decoration: none;
+  }
+
+  .titleURC, .categURC, .dateURC {
+    margin-bottom: 0;
+    margin-left: 10px;
+  }
+
+  .titleURC {
+    color: #272d2f;
+    font-size: 23px;
+    font-weight: 700;
+    margin-top: 0;
+  }
+
+  .categURC {
+    font-size: 16px;
+    margin-top: 0;
+  }
+
+  .dateURC {
+    font-size: 14px;
+    margin-top: 10px;
+  }
+}
