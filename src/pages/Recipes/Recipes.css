@@ -12,3 +12,21 @@
   text-align: center;
   width: 100%;
 }
+
+@media screen and ( min-width : 641px ) {
+
+  .mainRecipes {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-bottom: 80px;
+    width: 100%;
+  }
+
+  .bodyRecipes {
+    border: none;
+    text-align: center;
+    width: 60%;
+  }
+}

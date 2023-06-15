@@ -93,10 +93,18 @@
     width: 100%;
   }
 
-  .logoHeader {
-    border-radius: 20px;
-    margin-left: 10px;
-    width: 60px;
+  .logoheaderDiv {
+    border-radius: 10px;
+    height: 75px;
+    margin-left: 1px;
+    width: 150px;
+  }
+
+  .logoheaderDiv img {
+    border-radius: 10px;
+    height: 100%;
+    object-fit: cover;
+    width: 100%;
   }
 
   .titleHeader {
@@ -155,10 +163,18 @@
     width: 100%;
   }
 
-  .logoHeader {
-    border-radius: 20px;
-    margin-left: 10px;
-    width: 60px;
+  .logoheaderDiv {
+    border-radius: 10px;
+    height: 75px;
+    margin-left: 3px;
+    width: 150px;
+  }
+
+  .logoheaderDiv img {
+    border-radius: 10px;
+    height: 100%;
+    object-fit: cover;
+    width: 100%;
   }
 
   .titleHeader {
