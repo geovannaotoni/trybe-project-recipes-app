@@ -11,7 +11,8 @@
   }
 
   .carousel-container::-webkit-scrollbar {
-    width: 12px;
+    height: 0.1px;
+    width: 0.1px;
   }
 
   .carousel-container::-webkit-scrollbar-track {
@@ -20,7 +21,7 @@
   }
 
   .carousel-container::-webkit-scrollbar-thumb {
-    background-color: #fe724c;
+    background-color: transparent;
     border-radius: 20px;
   }
 }
