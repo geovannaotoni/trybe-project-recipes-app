@@ -1,5 +1,28 @@
-.video {
-  border: 5px solid #fe724c;
-  border-radius: 10px;
-  width: 80%;
+@media screen and ( min-width : 1201px ) {
+
+  .video {
+    border: 5px solid #fe724c;
+    border-radius: 10px;
+    height: 400px;
+    width: 80%;
+  }
+}
+
+@media screen and ( max-width : 640px ) {
+
+  .video {
+    border: 5px solid #fe724c;
+    border-radius: 10px;
+    width: 80%;
+  }
+}
+
+@media screen and ( max-width : 1200px ) {
+
+  .video {
+    border: 5px solid #fe724c;
+    border-radius: 10px;
+    height: 300px;
+    width: 80%;
+  }
 }

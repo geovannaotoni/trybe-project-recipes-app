@@ -1,23 +1,84 @@
-.carousel-container {
-  align-items: center;
-  display: flex;
-  height: 200px;
-  margin: 40px 0 10px;
-  overflow-x: scroll;
-  padding: 10px;
-  width: 100%;
+@media screen and ( max-width : 640px ) {
+
+  .carousel-container {
+    align-items: center;
+    display: flex;
+    height: 200px;
+    margin: 40px 0 10px;
+    overflow-x: scroll;
+    padding: 10px;
+    width: 100%;
+  }
+
+  .carousel-container::-webkit-scrollbar {
+    width: 12px;
+  }
+
+  .carousel-container::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 20px;
+  }
+
+  .carousel-container::-webkit-scrollbar-thumb {
+    background-color: #fe724c;
+    border-radius: 20px;
+  }
 }
 
-.carousel-container::-webkit-scrollbar {
-  width: 12px;
+@media screen and ( max-width : 1200px ) {
+
+  .carousel-container {
+    align-items: center;
+    display: flex;
+    height: 200px;
+    margin: 40px 0 10px;
+    overflow-x: scroll;
+    padding: 10px;
+    width: 100%;
+  }
+
+  .carousel-container::-webkit-scrollbar {
+    width: 12px;
+  }
+
+  .carousel-container::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 20px;
+  }
+
+  .carousel-container::-webkit-scrollbar-thumb {
+    background-color: #fe724c;
+    border-radius: 20px;
+  }
 }
 
-.carousel-container::-webkit-scrollbar-track {
-  background: transparent;
-  border-radius: 20px;
-}
+@media screen and ( min-width : 1201px ) {
 
-.carousel-container::-webkit-scrollbar-thumb {
-  background-color: #fe724c;
-  border-radius: 20px;
+  .carousel-container {
+    align-items: center;
+    background: radial-gradient(circle, #282929 0%, #343535 76%, #8f8f8cbb 100%);
+    background-color: #282929;
+    border-radius: 10px;
+    display: flex;
+    height: 200px;
+    justify-content: center;
+    margin: 40px auto 10px;
+    overflow-x: scroll;
+    padding: 10px;
+    width: 80%;
+  }
+
+  .carousel-container::-webkit-scrollbar {
+    width: 12px;
+  }
+
+  .carousel-container::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 20px;
+  }
+
+  .carousel-container::-webkit-scrollbar-thumb {
+    background-color: #fe724c;
+    border-radius: 20px;
+  }
 }
