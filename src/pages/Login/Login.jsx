@@ -27,6 +27,13 @@ function Login() {
     history.push('/meals');
   };
 
+  const handleKeyDown = ({ keyCode }) => {
+    const keyCodeENTER = 13;
+    if (keyCode === keyCodeENTER && !btnDisabled) {
+      handleClick();
+    }
+  };
+
   useEffect(() => {
     const verifyFields = () => {
       const { email, password } = login;
@@ -51,6 +58,7 @@ function Login() {
           onChange={ handleChange }
           placeholder="Email"
           data-testid="email-input"
+          onKeyDown={ handleKeyDown }
         />
         <input
           type="password"
@@ -59,6 +67,7 @@ function Login() {
           onChange={ handleChange }
           placeholder="Password"
           data-testid="password-input"
+          onKeyDown={ handleKeyDown }
         />
         <button
           type="button"

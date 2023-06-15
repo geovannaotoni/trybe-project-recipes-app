@@ -29,7 +29,7 @@ export default function RecipeContent(props) {
         const inProgressRecipes = getFromStorage('inProgressRecipes');
         inProgressIng = inProgressRecipes
           ? inProgressRecipes[type][food.idMeal || food.idDrink] : [];
-        console.log(inProgressRecipes, inProgressIng);
+        // console.log(inProgressRecipes, inProgressIng);
       }
       const newIngredients = Object.keys(food)
         .filter((key) => key.includes('strIngredient') && food[key])
@@ -64,7 +64,7 @@ export default function RecipeContent(props) {
   };
 
   const handleCheck = ({ target }) => {
-    console.log('target.value', target.value);
+    // console.log('target.value', target.value);
 
     setIngredients((prev) => {
       const newIng = prev.map((ing, index) => {

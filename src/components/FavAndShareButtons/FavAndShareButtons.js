@@ -26,7 +26,7 @@ function FavAndShareButtons(props) {
     setIsFavorite(isRecipeFavorite);
   }, [id]);
 
-  const handleFavorite = () => { // Função para salvar a receita no LS
+  const handleFavorite = async () => { // Função para salvar a receita no LS
     const { idMeal, idDrink, strArea, strCategory, strAlcoholic,
       strDrinkThumb, strMealThumb, strMeal, strDrink } = food;
     const typeSingular = type === 'meals' ? 'meal' : 'drink';
@@ -48,6 +48,11 @@ function FavAndShareButtons(props) {
     } else {
       setIsFavorite(true); // Pintar o coração
       newLS = [...favoriteRecipes, favoriteRecipe];
+      // Exibe mensagem para ir para a página de favs
+      const resultMsg = await copyMsg('Salvo nos favoritos!', 'Acessar');
+      if (resultMsg.isConfirmed) {
+        history.push('/favorite-recipes');
+      }
     }
     setOnStorage('favoriteRecipes', newLS); // Salvo no LS
   };

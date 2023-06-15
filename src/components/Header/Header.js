@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import profileIconImage from '../../images/profileIcon.svg';
 import searchIconImage from '../../images/searchIcon.svg';
 import SearchBar from '../SearchBar/SearchBar';
@@ -15,9 +15,9 @@ function Header({ pageTitle }) {
   return (
     <header className="mainHeader">
       <div className="iconsHeader">
-        <div className="logoheaderDiv">
+        <Link to="/meals" className="logoheaderDiv">
           <img src={ logoIcon } alt="Icon" className="logoHeader" />
-        </div>
+        </Link>
         <div>
           <button type="button" onClick={ () => history.push('/profile') }>
             <img

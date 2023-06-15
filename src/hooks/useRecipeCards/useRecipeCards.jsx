@@ -28,7 +28,11 @@ function useRecipeCards() {
     }
 
     return tagsToRender.map((tag) => (
-      <span key={ tag } data-testid={ `${index}-${tag}-horizontal-tag` }>
+      <span
+        key={ tag }
+        data-testid={ `${index}-${tag}-horizontal-tag` }
+        className="categURC"
+      >
         {tag}
       </span>));
   };
@@ -67,7 +71,7 @@ function useRecipeCards() {
         {
           recipe.doneDate && (
             <p data-testid={ `${index}-horizontal-done-date` } className="dateURC">
-              {recipe.doneDate }
+              {new Date(recipe.doneDate).toLocaleDateString('en-US')}
             </p>
           )
         }

@@ -37,13 +37,16 @@ export const showError = (message) => {
     title: 'Oops...',
     text: message,
     confirmButtonColor: '#dd6b55',
+    timer: 2500,
+    timerProgressBar: true,
   });
   // podemos inserir callback de retorno, timer, etc, etc
 };
 
-export const copyMsg = () => {
-  Swal.fire({
-    title: 'Link copied!',
-    confirmButtonColor: '#fe724c',
-  });
-};
+export const copyMsg = (title = 'Link copied!', confirmButtonText = 'OK') => Swal.fire({
+  title,
+  confirmButtonColor: '#fe724c',
+  timer: 2500,
+  timerProgressBar: true,
+  confirmButtonText,
+});
