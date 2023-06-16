@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 // import Swal from 'sweetalert2';
 import RecipesContext from '../../context/RecipesContext';
 import { fetchAPI } from '../../services/fetchAPI';
-import { API_URL } from '../../services/helpers';
+import { API_URL, showError } from '../../services/helpers';
 import './SearchBar.css';
 
 const FIRST_LETTER = 'firstLetter';
@@ -49,8 +49,15 @@ export default function SearchBar() {
         setResults(apiData ?? []);
       }
     } catch (error) {
-      global.alert(error.message);
+      showError(error.message);
       setResults([]);
+    }
+  };
+
+  const handleKeyDown = ({ keyCode }) => {
+    const keyENTER = 13;
+    if (keyCode === keyENTER) {
+      handleSearchClick();
     }
   };
 
@@ -63,7 +70,8 @@ export default function SearchBar() {
         onChange={ ({ target }) => setSearchInput(target.value) }
         placeholder="Digite aqui"
         className="SearchBarInput"
-        // maxLength={ radioInput === 'First letter' ? 1 : '' }
+        onKeyDown={ handleKeyDown }
+        maxLength={ radioInput === FIRST_LETTER ? 1 : '' }
       />
 
       <div className="SearchBarRadioAndLabel">
@@ -99,8 +107,14 @@ export default function SearchBar() {
         <label htmlFor="first-letter-search-radio">First letter</label>
       </div>
       <button data-testid="exec-search-btn" onClick={ handleSearchClick }>Search</button>
+      {
+        results
+        && (
+          <h4 className="SearchBarResults">
+            {`${results.length} ${results.length > 1 ? 'results' : 'result'}`}
+          </h4>)
 
-      <h4 className="SearchBarResults">{`${results ? results.length : 0} resultados`}</h4>
+      }
 
     </div>
   );

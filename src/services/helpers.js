@@ -33,11 +33,12 @@ export const sanitizeURL = (url) => url.replaceAll(' ', '%20');
 
 export const showError = (message) => {
   Swal.fire({
-    icon: 'warning',
+    icon: 'error',
     title: 'Oops...',
     text: message,
+    iconColor: '#dd6b55',
     confirmButtonColor: '#dd6b55',
-    timer: 2500,
+    timer: 3000,
     timerProgressBar: true,
   });
   // podemos inserir callback de retorno, timer, etc, etc
@@ -45,8 +46,16 @@ export const showError = (message) => {
 
 export const copyMsg = (title = 'Link copied!', confirmButtonText = 'OK') => Swal.fire({
   title,
+  icon: 'success',
+  iconColor: '#fe724c',
   confirmButtonColor: '#fe724c',
-  timer: 2500,
+  timer: 3000,
   timerProgressBar: true,
   confirmButtonText,
 });
+
+// Formatar Instruções da receita
+export const formatInstructions = (instructions) => {
+  const phrases = instructions.replaceAll('. ', '.\n');
+  return phrases;
+};

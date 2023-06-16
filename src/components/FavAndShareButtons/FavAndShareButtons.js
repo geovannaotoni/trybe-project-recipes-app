@@ -6,9 +6,9 @@ import { useHistory } from 'react-router-dom';
 import fullHeart from '../../images/blackHeartIcon.svg';
 import shareIMG from '../../images/shareIcon.svg';
 import emptyHeart from '../../images/whiteHeartIcon.svg';
+import { copyMsg } from '../../services/helpers';
 import { getFromStorage, setOnStorage } from '../../services/localStorage';
 import './FavAndShareButtons.css';
-import { copyMsg } from '../../services/helpers';
 
 function FavAndShareButtons(props) {
   const history = useHistory();
@@ -49,7 +49,10 @@ function FavAndShareButtons(props) {
       setIsFavorite(true); // Pintar o coração
       newLS = [...favoriteRecipes, favoriteRecipe];
       // Exibe mensagem para ir para a página de favs
-      const resultMsg = await copyMsg('Salvo nos favoritos!', 'Acessar');
+      const resultMsg = await copyMsg(
+        'Recipe marked as favorite!',
+        'Go to Favorites Recipes',
+      );
       if (resultMsg.isConfirmed) {
         history.push('/favorite-recipes');
       }

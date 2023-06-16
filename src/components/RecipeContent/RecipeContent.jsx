@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { formatInstructions } from '../../services/helpers';
 import { getFromStorage, setOnStorage } from '../../services/localStorage';
 import RecipeBottomButton from '../RecipeBottomButton/RecipeBottomButton';
 import VideoFrame from '../VideoFrame/VideoFrame';
@@ -110,13 +111,18 @@ export default function RecipeContent(props) {
   return (
     <div className={ `${type}Page` }>
       <div className="titleAndCategor">
-        <p
+        <button onClick={ () => history.goBack() } className="backButton">
+          <span className="material-symbols-outlined">
+            arrow_back
+          </span>
+        </button>
+        <span
           data-testid="recipe-title"
           className="titleRC"
         >
           {food.strMeal || food.strDrink}
 
-        </p>
+        </span>
       </div>
       <p
         data-testid="recipe-category"
@@ -131,7 +137,13 @@ export default function RecipeContent(props) {
         data-testid="recipe-photo"
       />
       {renderIngredients()}
-      <p data-testid="instructions" className="instrucRC">{food.strInstructions}</p>
+      <p
+        data-testid="instructions"
+        className="instrucRC"
+      >
+        {formatInstructions(food.strInstructions)}
+
+      </p>
       {showVideo && <VideoFrame food={ food } />}
       <RecipeBottomButton
         food={ food }
